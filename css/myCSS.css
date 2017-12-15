@@ -1,0 +1,55 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+.bg-1 {
+    background-color: #333;
+    color: #ffffff;
+}
+
+.top-buffer { margin-top:20px; }
+.top-buffer2 { margin-top:10px; }
+
+div.hoverRow {
+    cursor: pointer;
+    border: 1px solid #999999;
+}
+
+.theList {
+    text-align: right;
+    list-style-position: inside;
+}​,
+
+ .button-box {
+     text-align:center;
+     margin-top:20px;
+ }
+
+input::-webkit-inner-spin-button, input::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}

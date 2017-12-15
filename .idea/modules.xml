@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../callrater/.idea/callrater.iml" filepath="$PROJECT_DIR$/../callrater/.idea/callrater.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lammah.iml" filepath="$PROJECT_DIR$/.idea/lammah.iml" />
+    </modules>
+  </component>
+</project>
