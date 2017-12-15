@@ -25,6 +25,23 @@ if(isset($_GET['operation']) == "NewOrder"){
 }
 
 echo "<div class=\"container\" align='right'>";
+echo "<div class=\"row table-responsive orderItemsAdded\" align=\"right\" style=\"display: none;\" id='orderItemsAdded'>";
+echo "<table class=\"table table-hover table-bordered table-striped\">";
+echo " <thead>
+      <tr>
+        <th> </th>
+         <th class=\"text-center\">Total</th>
+        <th class=\"text-center\">Quantity</th>
+        <th class=\"text-center\">Price</th>
+        <th class=\"text-center\">Item Name</th>
+      </tr>
+    </thead>";
+echo"<tbody>";
+   echo "<tr class='totalOfOrder'><td></td><td align='center' class='totalCol'>ss</td><td></td><td></td><td></td></tr>";
+echo "</tbody>";
+echo " </table>";
+echo "</div>";
+
   if (!isset($operation)){
         echo "<div class=\"row button-box\">";
             echo "<div class=\"col-sm-6 \">";
@@ -47,21 +64,23 @@ echo "<div class=\"container\" align='right'>";
                     echo "<h1>".$row['category_name']."</h1>";
                     echo "</div>";
                     echo "</div>";
-                    echo "<div class=\"row table-responsive\" align=\"right\" style=\"display: none;\" id='$row[id]'>";
+                    echo "<div class=\"row table-responsive foodMenuItems\" align=\"right\" style=\"display: none;\" id='$row[id]'>";
                     echo "<table class=\"table table-hover table-bordered table-striped\">";
                     echo"<tbody>";
                         while($row1 = $result1->fetch_assoc()) {
 
 //                            echo " <div class=\"list-group-item\"> <div class=\"col-sm-4\" >" . $row1['item_name'] . "</div> <div class=\"col-sm-8\" >" . $row1['item_name'] . " </div></div>";
 
-                                   echo"<tr>";
+                                   echo"<tr id='$row1[id]'>";
                                    if(!isset($operation)){
-                                        echo"<td > <a  class=\"btn btn-default\" href=\"./food_settings.php?operation=Edit&id=$row1[id]\">Edit</a> </td>";
+                                        echo"<td align=\"center\"> <a  class=\"btn btn-default\" href=\"./food_settings.php?operation=Edit&id=$row1[id]\">Edit</a> </td>";
                                    }else{
-                                       echo"<td id=$order_id data-value=$user_id> <a  class=\"btn btn-default add-remove-item-order\" id=$row1[id]>Add</a> </td>";
+                                       echo"<td id=$order_id data-value=$user_id align='center'> <a  class=\"btn btn-default add-remove-item-order\" id=$row1[id]>Add</a> </td>";
+                                       echo"<td align=\"center\">Quantity
+                                        <input type=\"number\" min=\"1\" style='width: 40px; ' value='1' id=\"QTY\" name=\"QTY\"> </td>";
                                    }
-                                        echo"<td align='right'>" . $row1['item_price'] . "</td>
-                                        <td align='right'>" . $row1['item_name'] . "</td>
+                                        echo"<td align='center' id='$row1[item_price]'>" . $row1['item_price'] . "</td>
+                                        <td align='center' id='$row1[item_name]'>" . $row1['item_name'] . "</td>
                                     </tr>
                                  ";
                         }
@@ -96,23 +115,59 @@ include '../_inc/footer.php';
         });
 
     });
-
+   $total= 0;
     $('.add-remove-item-order').click(function () {
         $item_id = $(this).attr('id');
         $user_id = $(this).parent().attr('data-value');
         $order_id = $(this).parent().attr('id');
+        $item_price = $(this).parent().next().next().attr('id');
+        $item_name = $(this).parent().next().next().next().attr('id');
+
         if($(this).text() == "Add"){
-            $(this).text("Remove");
+            $QTY = $(this).parent().next().find('input').val();
+            $total = $total + $QTY*$item_price;
+            $('.orderItemsAdded').show();
+            $(this).parent().parent().hide();
+            $orderItemsAddedTable =  $('.orderItemsAdded');
+            $orderItemsAddedTable.is(":visible", true);
+            $('<tr>' +
+                '<td align=\"center\" id=' + $order_id + ' data-value=' + $user_id + '>' +
+                ' <a  class=\"btn btn-default add-remove-item-order\" id=' + $item_id + '>Remove</a>' +
+                '   </td>' +
+                '  <td align=\"center\" >' + $item_price*$QTY + '</td>' +
+                '  <td align=\"center\" id=' +$QTY+'>' + $QTY + '</td>' +
+                '<td align="center" id=' +$item_price+'>' + $item_price + '</td>' +
+                '  <td align=\"center\">' + $item_name + '</td></tr>').insertBefore('tr.totalOfOrder');
+            $('td.totalCol').text($total);
             $.post("./food_settings.php",
                 {
                     operation: "AddItemOrder",
                     item_id: $item_id,
                     user_id: $user_id,
-                    order_id: $order_id
+                    order_id: $order_id,
+                    quantity: $QTY
                 },
                 function(data, status){});
-        }else{
-            $(this).text("Add");
+        }
+
+
+    });
+    $(document).on("click", ".add-remove-item-order" , function() {
+
+        if($(this).text() == "Remove"){
+            $(this).parent().parent().remove();
+            $item_id = $(this).attr('id');
+            $user_id = $(this).parent().attr('data-value');
+            $order_id = $(this).parent().attr('id');
+            $item_price = $(this).parent().next().next().next().attr('id');
+            $QTY = $(this).parent().next().next().attr('id');
+            $total = $total - $QTY*$item_price;
+            $('tr[id^='+$item_id+']').show();
+
+            if( $('.orderItemsAdded tr').length == 2){
+                $('.orderItemsAdded').hide();
+            }
+            $('td.totalCol').text($total);
             $.post("./food_settings.php",
                 {
                     operation: "RemoveItemOrder",
@@ -122,7 +177,6 @@ include '../_inc/footer.php';
                 },
                 function(data, status){});
         }
-
 
     });
 </script>

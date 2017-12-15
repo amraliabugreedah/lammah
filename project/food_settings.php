@@ -16,9 +16,10 @@ $operation =  isset($_POST['operation'])?$_POST['operation']:null;
 $item_id = isset($_POST['item_id'])?$_POST['item_id']:null;
 $user_id = isset($_POST['user_id'])?$_POST['user_id']:null;
 $order_id = isset($_POST['order_id'])?$_POST['order_id']:null;
+$quantity = isset($_POST['quantity'])?$_POST['quantity']:null;
 
 if($operation == "AddItemOrder"){
-    $sql1 = "INSERT INTO order_stuff (order_id, user_id, item_id) VALUES ($order_id, $user_id, $item_id)";
+    $sql1 = "INSERT INTO order_stuff (order_id, user_id, item_id, quantity) VALUES ($order_id, $user_id, $item_id, $quantity)";
     $conn->query($sql1);
 
 }else if($operation == "RemoveItemOrder"){
