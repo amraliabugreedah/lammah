@@ -1,0 +1,22 @@
+{
+  "name": "lammah",
+  "homepage": "https://github.com/amraliabugreedah/lammah",
+  "authors": [
+    "Amr Abu Greedah <amrabugreedah@gmail.com>"
+  ],
+  "description": "Food Delivery Service Web Application For Home",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "jquery": "^3.2.1"
+  }
+}

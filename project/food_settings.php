@@ -43,7 +43,6 @@ if(isset($_POST['ANI'])){
     $item_price = $_POST['item_price'];
 
     $sql1 = "UPDATE food_item SET item_name = '$item_name', item_price = $item_price WHERE  id = $item_id";
-    echo "\n$sql1\n";
     $conn->query($sql1);
 }
 

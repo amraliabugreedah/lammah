@@ -11,21 +11,52 @@ include '../_inc/header.php';
 include '../_inc/nav.php';
 include '../_lib/db.conf.php';
 
+
+
+echo "<div class=\"container\">";
+
 if(isset($_GET['operation']) == "NewOrder"){
     $user_id = isset($_GET['id'])?$_GET['id']:null;
     $operation =  'NewOrder';
 
     $sql = "INSERT INTO orders (user_id) VALUES ($user_id)";
     $conn->query($sql);
+
     $sql = "SELECT MAX(id) AS id FROM orders";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $order_id = $row['id'];
 
-}
+    $sql1 = "UPDATE users SET last_order_date = NOW() WHERE  id = $user_id";
+    $conn->query($sql1);
 
-echo "<div class=\"container\" align='right'>";
-echo "<div class=\"row table-responsive orderItemsAdded\" align=\"right\" style=\"display: none;\" id='orderItemsAdded'>";
+    $sql = "SELECT mobile FROM users where id = $user_id";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+
+    $user_mobile = $row['mobile'];
+
+
+
+
+echo "<div class=\"row top-buffer\">";
+echo"<div class=\"col-sm-3\"><a href='./order.php?mobile_no=$user_mobile&getUser=Submit&order_id=$order_id' style='pointer-events: none;' disabled type='button' id ='backToUserProfile' class='btn btn-default'>Back To User Profile</a> </div>";
+    echo"<div class='col-sm-3'> <label>Enter The Expected Delivery Date:<label></div>";
+    echo"<div class='col-sm-6'>
+            <div class=\"form-group\">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' id ='expectedDeliveryDate' class=\"form-control\" />
+                    <span class=\"input-group-addon\">
+                        <span class=\"glyphicon glyphicon-calendar\"></span>
+                    </span>
+                </div>
+            </div>
+        </div>";
+
+echo "</div>";
+echo "<div class=\"row table-responsive orderItemsAdded top-buffer\" style=\"display: none;\" id='orderItemsAdded'>";
+
+
 echo "<table class=\"table table-hover table-bordered table-striped\">";
 echo " <thead>
       <tr>
@@ -42,7 +73,7 @@ echo"<tbody>";
 echo "</tbody>";
 echo " </table>";
 echo "</div>";
-
+}
   if (!isset($operation)){
         echo "<div class=\"row button-box\">";
             echo "<div class=\"col-sm-6 \">";
@@ -185,6 +216,42 @@ include '../_inc/footer.php';
                 function(data, status){});
         }
 
+    });
+    $today = new Date();
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            sideBySide: true,
+            stepping: 5,
+            minDate:$today,
+            format: 'MM/DD/YYYY h:mm'
+
+        });
+    });
+
+    $('#expectedDeliveryDate').on('mouseenter mouseleave click focus blur',function(){
+        $backBTNHref = $('#backToUserProfile').attr('href');
+         $date = $('#datetimepicker1').data("DateTimePicker").date().format("YYYY-MM-DD HH:mm:ss");
+        // alert($('#datetimepicker1').data("DateTimePicker").date());
+        $strLength = $backBTNHref.length;
+        $newHref = '';
+        $flag= 0;
+        for($i = 0; $i <$strLength; $i++){
+            if($backBTNHref.charAt($i)=='&' && $flag==2){
+                break;
+            }else {
+                $newHref = $newHref + $backBTNHref.charAt($i);
+                if($backBTNHref.charAt($i)=='&'){
+                $flag++;
+                }
+            }
+        }
+        // alert($newHref);
+        $('#backToUserProfile').attr('href', $newHref + '&ExpDeliveryDate='+$date);
+        // alert($('#backToUserProfile').attr('href'));
+        // alert($date);
+        // ;
+        $('#backToUserProfile').attr('disabled', false);
+        $('#backToUserProfile').css('pointer-events', 'all')
     });
 </script>
 

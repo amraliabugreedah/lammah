@@ -53,6 +53,16 @@ if(isset($_POST['addNewUser'])){
         if ($result->num_rows == 1) {
             // output data of each row
             $row = $result->fetch_assoc();
+
+            $order_id = isset($_GET['order_id'])?$_GET['order_id']:null;
+            $ExpDeliveryDate = isset($_GET['ExpDeliveryDate'])?$_GET['ExpDeliveryDate']:null;
+            if(isset($order_id)&&isset($ExpDeliveryDate)){
+                $EDD = $ExpDeliveryDate;
+                $sql1 = "UPDATE orders SET expected_delivery_time = '$EDD' WHERE  user_id = $row[id] AND id= $order_id";
+                $conn->query($sql1);
+
+            }
+
             if($row['status'] == 0){
                 $statusIcon = '../images/Kyo-Tux-Aeon-Sign-Alert.ico';
                 $altStatus = "Alert";
