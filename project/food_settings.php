@@ -69,7 +69,7 @@ if($food_setting == 'ANI'){
    </div>";
     echo "<div class=\"form-group\">
    <label for=\"item_price\">Item Price </label> 
-   <input type=\"text\" required class=\"form-control\" id=\"item_price\" placeholder=\"Enter Item Price\" name=\"item_price\">
+   <input type=\"number\" min='0'required class=\"form-control\" id=\"item_price\" placeholder=\"Enter Item Price\" name=\"item_price\">
    </div>";
     echo " <input type=\"submit\"  class=\"btn btn-default\" name=\"ANI\" id=\"ANI\" value=\"Submit\">
 </form> ";
@@ -96,7 +96,7 @@ if($food_setting == 'ANI'){
    </div>";
     echo "<div class=\"form-group\">
    <label for=\"item_price\">Item Price </label> 
-   <input type=\"number\" required class=\"form-control\"  style=\"text-align:right;\" id=\"item_price\" name=\"item_price\" value='$row[item_price]'>
+   <input type=\"number\" min='0' required class=\"form-control\"  style=\"text-align:right;\" id=\"item_price\" name=\"item_price\" value='$row[item_price]'>
    </div>";
     echo " <input type=\"submit\"  class=\"btn btn-default\" name=\"Edit\" id=\"Edit\" value=\"Submit\">
  

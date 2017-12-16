@@ -23,7 +23,7 @@ if(isset($_POST['addNewUser'])){
     if (!mysqli_query($conn, $sql)) {
         $error = substr(mysqli_error($conn), 0, 9);
         if($error == "Duplicate"){
-            echo "<h1>This mobile number is already registered.<h1>";
+            echo "<h1> $mobile is already registered.<h1>";
         }else{
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
@@ -73,20 +73,81 @@ if(isset($_POST['addNewUser'])){
                        <div class=\"col-sm-2\"> <label>Last Name:</label> </div>  <div class=\"col-sm-2\"><label> " . $row["last_name"]. "</label> </div>
                        </div>
                        <div class=\"row bg-1 top-buffer2\"> 
-                       <div class=\"col-sm-2\"> <label>Mobile:</label> </div>  <div class=\"col-sm-2\"><label> " . $row["mobile"]. "</label> </div>
+                       <div class=\"col-sm-2\"> <label>Mobile:</label> </div>  <div class=\"col-sm-2\"><label> " . $row["mobile"] . "</label> </div>
                        </div>
                        <div class=\"row bg-1 top-buffer2\"> 
-                       <div class=\"col-sm-2\"> <label>Address:</label> </div>  <div class=\"col-sm-2\"><label> " . $row["address"]. "</label> </div>
+                       <div class=\"col-sm-2\"> <label>Address:</label> </div>  <div class=\"col-sm-2\"><label> " . $row["address"] . "</label> </div>
                        </div>
                        <div class=\"row bg-1 top-buffer2\"> 
                        <div class=\"col-sm-2\"> <label>Status:</label> </div>  <div class=\"col-sm-2\"><label> <img src=$statusIcon alt=$altStatus height=\"22\" width=\"22\"></label> </div>
                        </div>
                        <div class=\"row top-buffer\"> 
                        <div class=\"col-sm-2\"> <a href='./food.php?id=$row[id]&operation=NewOrder' type='button' class='btn btn-default'>New Order</a></div>
-                       </div>";
+                       </div> 
+                       <hr class=\"style1\">";
 
-        }else{
-            echo "<h1>This mobile number is not registered.<h1>";
+            $sql = "SELECT o.id, o.creation_time, o.status, os.quantity, fi.item_name, fi.item_price FROM orders AS o INNER JOIN order_stuff AS os 
+                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $row[id] ORDER BY o.id DESC";
+            $result = $conn->query($sql);
+            while($row = $result->fetch_assoc()){
+                $sql1 = "SELECT COUNT(*) AS total FROM order_stuff  WHERE order_id = $row[id]";
+                $result1 = $conn->query($sql1);
+
+            echo "<div class=\"row table-responsive\" align=\"center\" style=\"display: block;\" id=''>";
+            echo "<table class=\"table table-hover table-bordered table-striped\">";
+            echo " <thead>
+      <tr>
+        <th class=\"text-center\"></th>
+        <th class=\"text-center\">Order ID</th>
+        <th class=\"text-center\">Item Name</th>
+        <th class=\"text-center\">Item Price</th>
+        <th class=\"text-center\">Item Quantity</th>
+        <th class=\"text-center\">Order Creation Time</th>
+        <th class=\"text-center\">Order Status</th>
+      </tr>
+    </thead>";
+            echo "<tbody>";
+                $row1 = $result1->fetch_assoc();
+                $total_price = 0;
+                $total_quantity = 0;
+                for($i = 0; $i < $row1['total']; $i++) {
+                    $total_price = $total_price + $row["item_price"];
+                    $total_quantity = $total_quantity + $row["quantity"];
+                    echo "<tr id=''>";
+                    echo "  <td align='center' id=''></td>
+                            <td align='center' id=''>" .$row['id'] . "</td>
+                           <td align='center' id=''>" . $row["item_name"] . "</td>
+                            <td align='center' id=''>" . $row["item_price"] . "</td>
+                            <td align='center' id=''>" . $row["quantity"] . "</td>
+                            <td align='center' id=''>" . $row["creation_time"] . "</td>";
+                    if($row["status"] == 1){
+                           echo "<td align='center' id=''>Delivered</td>";
+                    }else if($row["status"] == 0){
+                        echo "<td align='center' id=''>Order Not Delivered Yet</td>";
+                    }else if($row["status"] == -1){
+                        echo "<td align='center' id=''>Cancelled</td>";
+                    }
+                                   echo "</tr>";
+                    if($i < ($row1['total']-1)){
+                        $row = $result->fetch_assoc();
+                    }
+                }
+                echo "<tr id=''>";
+                echo "  <td align='center' id=''>Total</td>
+                            <td align='center' id=''></td>
+                           <td align='center' id=''></td>
+                            <td align='center' id=''>$total_price</td>
+                            <td align='center' id=''>$total_quantity</td>
+                            <td align='center' id=''></td>
+                            <td align='center' id=''></td>
+                                    </tr>";
+            echo "</tbody>";
+            echo " </table>";
+            echo "</div>";
+            }
+
+        } else {
+            echo "<h1>$mobile is not registered.<h1>";
         }
 
     }

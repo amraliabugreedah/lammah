@@ -30,14 +30,15 @@ echo "<table class=\"table table-hover table-bordered table-striped\">";
 echo " <thead>
       <tr>
         <th> </th>
-         <th class=\"text-center\">Total</th>
+        <th> </th>
+         <th class=\"text-center\">Total Item Price</th>
         <th class=\"text-center\">Quantity</th>
         <th class=\"text-center\">Price</th>
         <th class=\"text-center\">Item Name</th>
       </tr>
     </thead>";
 echo"<tbody>";
-   echo "<tr class='totalOfOrder'><td></td><td align='center' class='totalCol'>ss</td><td></td><td></td><td></td></tr>";
+   echo "<tr class='totalOfOrder'><td align='center'>Grand Total</td><td></td><td align='center' class='totalItemPrice'></td><td align='center' class='totalQTY'></td><td></td><td></td></tr>";
 echo "</tbody>";
 echo " </table>";
 echo "</div>";
@@ -115,7 +116,8 @@ include '../_inc/footer.php';
         });
 
     });
-   $total= 0;
+    $total= 0;
+    $totalQTY = 0;
     $('.add-remove-item-order').click(function () {
         $item_id = $(this).attr('id');
         $user_id = $(this).parent().attr('data-value');
@@ -126,11 +128,13 @@ include '../_inc/footer.php';
         if($(this).text() == "Add"){
             $QTY = $(this).parent().next().find('input').val();
             $total = $total + $QTY*$item_price;
+            $totalQTY = $totalQTY + parseInt($QTY);
             $('.orderItemsAdded').show();
             $(this).parent().parent().hide();
             $orderItemsAddedTable =  $('.orderItemsAdded');
             $orderItemsAddedTable.is(":visible", true);
             $('<tr>' +
+                '<td></td>' +
                 '<td align=\"center\" id=' + $order_id + ' data-value=' + $user_id + '>' +
                 ' <a  class=\"btn btn-default add-remove-item-order\" id=' + $item_id + '>Remove</a>' +
                 '   </td>' +
@@ -138,7 +142,8 @@ include '../_inc/footer.php';
                 '  <td align=\"center\" id=' +$QTY+'>' + $QTY + '</td>' +
                 '<td align="center" id=' +$item_price+'>' + $item_price + '</td>' +
                 '  <td align=\"center\">' + $item_name + '</td></tr>').insertBefore('tr.totalOfOrder');
-            $('td.totalCol').text($total);
+            $('td.totalItemPrice').text($total);
+            $('td.totalQTY').text($totalQTY);
             $.post("./food_settings.php",
                 {
                     operation: "AddItemOrder",
@@ -162,12 +167,14 @@ include '../_inc/footer.php';
             $item_price = $(this).parent().next().next().next().attr('id');
             $QTY = $(this).parent().next().next().attr('id');
             $total = $total - $QTY*$item_price;
+            $totalQTY = $totalQTY - parseInt($QTY);
             $('tr[id^='+$item_id+']').show();
 
             if( $('.orderItemsAdded tr').length == 2){
                 $('.orderItemsAdded').hide();
             }
-            $('td.totalCol').text($total);
+            $('td.totalItemPrice').text($total);
+            $('td.totalQTY').text($totalQTY);
             $.post("./food_settings.php",
                 {
                     operation: "RemoveItemOrder",
