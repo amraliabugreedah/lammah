@@ -96,7 +96,7 @@ if(isset($_POST['addNewUser'])){
                        </div> 
                        <hr class=\"style1\">";
 
-            $sql = "SELECT o.id, o.creation_time, o.status, os.quantity, fi.item_name, fi.item_price FROM orders AS o INNER JOIN order_stuff AS os 
+            $sql = "SELECT o.id, o.creation_time, o.expected_delivery_time, o.status, os.quantity, fi.item_name, fi.item_price FROM orders AS o INNER JOIN order_stuff AS os 
                     ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $row[id] ORDER BY o.id DESC";
             $result = $conn->query($sql);
             while($row = $result->fetch_assoc()){
@@ -114,6 +114,7 @@ if(isset($_POST['addNewUser'])){
         <th class=\"text-center\">Item Quantity</th>
         <th class=\"text-center\">Order Creation Time</th>
         <th class=\"text-center\">Order Status</th>
+        <th class=\"text-center\">Expected Delivery Date</th>
       </tr>
     </thead>";
             echo "<tbody>";
@@ -137,6 +138,7 @@ if(isset($_POST['addNewUser'])){
                     }else if($row["status"] == -1){
                         echo "<td align='center' id=''>Cancelled</td>";
                     }
+                    echo "<td align='center' id=''>" . $row["expected_delivery_time"] . "</td>";
                                    echo "</tr>";
                     if($i < ($row1['total']-1)){
                         $row = $result->fetch_assoc();
