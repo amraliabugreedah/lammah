@@ -64,10 +64,10 @@ if(isset($_POST['addNewUser'])){
             }
 
             if($row['status'] == 0){
-                $statusIcon = '../images/Kyo-Tux-Aeon-Sign-Alert.ico';
+                $statusIcon = '../images/alert.ico';
                 $altStatus = "Alert";
             }else if($row['status'] == 1){
-                $statusIcon = '../images/Tatice-Cristal-Intense-Ok.ico';
+                $statusIcon = '../images/ok.ico';
                 $altStatus = "Ok";
             }else if($row['status'] == -1){
                 $statusIcon = '../images/Warning.png';
@@ -127,7 +127,7 @@ if(isset($_POST['addNewUser'])){
                     echo "<tr id=''>";
                     echo "  <td align='center' id=''></td>
                             <td align='center' id=''>" .$row['id'] . "</td>
-                           <td align='center' id=''>" . $row["item_name"] . "</td>
+                            <td align='center' id=''>" . $row["item_name"] . "</td>
                             <td align='center' id=''>" . $row["item_price"] . "</td>
                             <td align='center' id=''>" . $row["quantity"] . "</td>
                             <td align='center' id=''>" . $row["creation_time"] . "</td>";
