@@ -10,7 +10,7 @@ $pageTitle = 'Food';
 include '../_inc/header.php';
 include '../_inc/nav.php';
 include '../_lib/db.conf.php';
-
+include '../_inc/main_user_info.php';
 
 
 echo "<div class=\"container\">";
@@ -19,7 +19,7 @@ if(isset($_GET['operation']) == "NewOrder"){
     $user_id = isset($_GET['id'])?$_GET['id']:null;
     $operation =  'NewOrder';
 
-    $sql = "INSERT INTO orders (user_id) VALUES ($user_id)";
+    $sql = "INSERT INTO orders (client_id, user_id) VALUES ($curr_client_id, $user_id)";
     $conn->query($sql);
 
     $sql = "SELECT MAX(id) AS id FROM orders";
@@ -41,7 +41,7 @@ if(isset($_GET['operation']) == "NewOrder"){
 
 echo "<div class=\"row top-buffer\">";
 echo"<div class=\"col-sm-3\"><a href='./order.php?mobile_no=$user_mobile&getUser=Submit&order_id=$order_id' style='pointer-events: none;' disabled type='button' id ='backToUserProfile' class='btn btn-default'>Back To User Profile</a> </div>";
-    echo"<div class='col-sm-3'> <label>Enter The Expected Delivery Date:<label></div>";
+    echo"<div class='col-sm-3'> <label style='margin-top:8px; '>Enter The Expected Delivery Date:</label></div>";
     echo"<div class='col-sm-6'>
             <div class=\"form-group\">
                 <div class='input-group date' id='datetimepicker1'>
@@ -62,10 +62,10 @@ echo " <thead>
       <tr>
         <th> </th>
         <th> </th>
-         <th class=\"text-center\">Total Item Price</th>
-        <th class=\"text-center\">Quantity</th>
-        <th class=\"text-center\">Price</th>
-        <th class=\"text-center\">Item Name</th>
+        <th class=\"text-center\" style='width: 25%'>Total Item Price</th>
+        <th class=\"text-center\" style='width: 25%'>Quantity</th>
+        <th class=\"text-center\" style='width: 25%'>Price</th>
+        <th class=\"text-center\" style='width: 25%'>Item Name</th>
       </tr>
     </thead>";
 echo"<tbody>";
@@ -85,7 +85,7 @@ echo "</div>";
          echo "</div>";
   }
 
-            $sql = "SELECT * FROM food_category";
+            $sql = "SELECT * FROM food_category WHERE client_id = $curr_client_id";
             $result = $conn->query($sql);
                 while($row = $result->fetch_assoc()){
                     $sql1 = "SELECT * FROM food_item WHERE category_id = $row[id]";
@@ -98,6 +98,13 @@ echo "</div>";
                     echo "</div>";
                     echo "<div class=\"row table-responsive foodMenuItems\" align=\"right\" style=\"display: none;\" id='$row[id]'>";
                     echo "<table class=\"table table-hover table-bordered table-striped\">";
+                    echo " <thead>
+                               <tr>
+                                 <th class=\"text-center\" style='width: 25%'></th>
+                                 <th class=\"text-center\" style='width: 25%'>Price</th>
+                                 <th class=\"text-center\" style='width: 25%'>Item Name</th>
+                               </tr>
+                           </thead>";
                     echo"<tbody>";
                         while($row1 = $result1->fetch_assoc()) {
 
@@ -126,6 +133,8 @@ include '../_inc/footer.php';
 ?>
 
 <script>
+    $permission_to_show_deliver_date = false;
+    $permission_to_show_order_item_table = false;
     $('#food').addClass("active");
 
     $('.hoverRow').click(function () {
@@ -156,14 +165,20 @@ include '../_inc/footer.php';
         $item_price = $(this).parent().next().next().attr('id');
         $item_name = $(this).parent().next().next().next().attr('id');
 
-        if($(this).text() == "Add"){
+        if($(this).text() === "Add"){
             $QTY = $(this).parent().next().find('input').val();
             $total = $total + $QTY*$item_price;
             $totalQTY = $totalQTY + parseInt($QTY);
-            $('.orderItemsAdded').show();
-            $(this).parent().parent().hide();
             $orderItemsAddedTable =  $('.orderItemsAdded');
+            $orderItemsAddedTable.show();
+            $(this).parent().parent().hide();
             $orderItemsAddedTable.is(":visible", true);
+            if($permission_to_show_deliver_date === true){
+            $backToUserProfile = $('#backToUserProfile');
+            $backToUserProfile.attr('disabled', false);
+            $backToUserProfile.css('pointer-events', 'auto');
+            }
+            $permission_to_show_order_item_table = true;
             $('<tr>' +
                 '<td></td>' +
                 '<td align=\"center\" id=' + $order_id + ' data-value=' + $user_id + '>' +
@@ -190,7 +205,7 @@ include '../_inc/footer.php';
     });
     $(document).on("click", ".add-remove-item-order" , function() {
 
-        if($(this).text() == "Remove"){
+        if($(this).text() === "Remove"){
             $(this).parent().parent().remove();
             $item_id = $(this).attr('id');
             $user_id = $(this).parent().attr('data-value');
@@ -200,8 +215,11 @@ include '../_inc/footer.php';
             $total = $total - $QTY*$item_price;
             $totalQTY = $totalQTY - parseInt($QTY);
             $('tr[id^='+$item_id+']').show();
-
-            if( $('.orderItemsAdded tr').length == 2){
+            $backToUserProfile = $('#backToUserProfile');
+            if( $('.orderItemsAdded tr').length === 2){
+                $permission_to_show_order_item_table = false;
+                $backToUserProfile.attr('disabled', true);
+                $backToUserProfile.css('pointer-events', 'none');
                 $('.orderItemsAdded').hide();
             }
             $('td.totalItemPrice').text($total);
@@ -229,29 +247,35 @@ include '../_inc/footer.php';
     });
 
     $('#expectedDeliveryDate').on('mouseenter mouseleave click focus blur',function(){
-        $backBTNHref = $('#backToUserProfile').attr('href');
+        $backToUserProfile = $('#backToUserProfile');
+        $backBTNHref = $backToUserProfile.attr('href');
          $date = $('#datetimepicker1').data("DateTimePicker").date().format("YYYY-MM-DD HH:mm:ss");
         // alert($('#datetimepicker1').data("DateTimePicker").date());
         $strLength = $backBTNHref.length;
         $newHref = '';
         $flag= 0;
         for($i = 0; $i <$strLength; $i++){
-            if($backBTNHref.charAt($i)=='&' && $flag==2){
+            if($backBTNHref.charAt($i)==='&' && $flag===2){
                 break;
             }else {
                 $newHref = $newHref + $backBTNHref.charAt($i);
-                if($backBTNHref.charAt($i)=='&'){
+                if($backBTNHref.charAt($i)==='&'){
                 $flag++;
                 }
             }
         }
+        if($permission_to_show_order_item_table === true){
+            $backToUserProfile = $('#backToUserProfile');
+            $backToUserProfile.attr('disabled', false);
+            $backToUserProfile.css('pointer-events', 'auto');
+        }
+        $permission_to_show_deliver_date = true;
+
         // alert($newHref);
-        $('#backToUserProfile').attr('href', $newHref + '&ExpDeliveryDate='+$date);
+        $backToUserProfile.attr('href', $newHref + '&ExpDeliveryDate='+$date);
         // alert($('#backToUserProfile').attr('href'));
         // alert($date);
         // ;
-        $('#backToUserProfile').attr('disabled', false);
-        $('#backToUserProfile').css('pointer-events', 'auto');
     });
 </script>
 

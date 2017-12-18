@@ -22,7 +22,7 @@ include 'header.php';
                         <label for="password">Password: </label>
                         <input type="password" required class="form-control" id="password" placeholder="Enter your password" name="password">
                     </div>
-                    <input type="button"  class="btn btn-info submitLoginInfo" name="submitLoginInfo" id="submitLoginInfo" value="Login">
+                    <input type="button"  class="btn btn-primary submitLoginInfo" name="submitLoginInfo" id="submitLoginInfo" value="Login">
                 </form>
             </div>
         </div>
@@ -49,9 +49,10 @@ include 'header.php';
                 },
                 function(data, status){
                 if(data !== ''){
-                    $('.errorMessage').css('display', 'block');
-                    $('.errorMessage').empty();
-                    $('.errorMessage').append(data);
+                    $errorMessage = $('.errorMessage');
+                    $errorMessage.css('display', 'block');
+                    $errorMessage.empty();
+                    $errorMessage.append(data);
                 }else{
                     window.location =  "../project/main.php";
                 }
@@ -59,7 +60,7 @@ include 'header.php';
         });
         $('#username, #password').keydown(function (e) {
             var key = e.which;
-            if(key == 13)  // the enter key code
+            if(key === 13)  // the enter key code
             {
                 $('.submitLoginInfo').click();
                 return false;

@@ -8,6 +8,8 @@
 session_start();
 
 if(session_destroy()) {
+    unset($_SESSION['logged_client']);
+    $_SESSION = array();
     header("Location: ../_inc/login_form.php");
 }
 ?>

@@ -5,7 +5,7 @@
  * Date: 12/18/2017
  * Time: 11:31 AM
  */
-include '../_lib/db.conf.php';
+require_once '../_lib/db.conf.php';
 session_start();
 
 if(isset($_POST['submitLoginInfo'])) {
@@ -14,7 +14,7 @@ if(isset($_POST['submitLoginInfo'])) {
     $myusername = mysqli_real_escape_string($conn,$_POST['username']);
     $mypassword = mysqli_real_escape_string($conn,$_POST['password']);
 
-    $sql = "SELECT cid, clientpassword, active FROM client WHERE clientname = '$myusername'";
+    $sql = "SELECT cid, clientpassword, active FROM clients WHERE clientname = '$myusername'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $row_cnt = $result->num_rows;

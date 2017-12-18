@@ -10,6 +10,8 @@ $pageTitle = 'Food Settings';
 include '../_inc/header.php';
 include '../_inc/nav.php';
 include '../_lib/db.conf.php';
+include '../_inc/main_user_info.php';
+
 
 $food_setting = isset($_GET['operation'])?$_GET['operation']:null;
 $operation =  isset($_POST['operation'])?$_POST['operation']:null;
@@ -33,24 +35,29 @@ if(isset($_POST['ANI'])){
     $item_price = $_POST['item_price'];
     $sql1 = "INSERT INTO food_item (category_id, item_name, item_price) VALUES ($food_category_id, '$item_name', $item_price)";
     $conn->query($sql1);
+    header("location:food.php");
 }else if(isset($_POST['ANG'])){
     $food_category_name = $_POST['category_name'];
-    $sql1 = "INSERT INTO food_category (category_name) VALUES ('$food_category_name')";
+    $sql1 = "INSERT INTO food_category (client_id, category_name) VALUES ($curr_client_id, '$food_category_name')";
     $conn->query($sql1);
+    header("location:food.php");
 }else if(isset($_POST['Edit'])){
+    $category_id = $_POST['sel2'];
     $item_id = $_POST['item_id'];
     $item_name = $_POST['item_name'];
     $item_price = $_POST['item_price'];
 
-    $sql1 = "UPDATE food_item SET item_name = '$item_name', item_price = $item_price WHERE  id = $item_id";
+    $sql1 = "UPDATE food_item SET category_id = $category_id, item_name = '$item_name', item_price = $item_price WHERE  id = $item_id";
     $conn->query($sql1);
+
+    header("location:food.php");
 }
 
 echo "<div class=\"container\" align='right'>";
 
 
 if($food_setting == 'ANI'){
-    $sql = "SELECT * FROM food_category";
+    $sql = "SELECT * FROM food_category WHERE client_id = $curr_client_id";
     $result = $conn->query($sql);
 
     echo " <form method=\"POST\" action=\"$_SERVER[PHP_SELF]\">";
@@ -58,6 +65,7 @@ if($food_setting == 'ANI'){
         <label for=\"sel1\">Select list:</label>
         <select class=\"form-control\" id=\"sel1\" name=\"sel1\">";
     while($row = $result->fetch_assoc()) {
+
         echo "<option id = $row[id] value='$row[id]'> $row[category_name]</option>";
     }
     echo " </select>
@@ -83,12 +91,26 @@ if($food_setting == 'ANI'){
     </form>";
 }else if($food_setting == 'Edit'){
     $item_id = $_GET['id'];
-    $sql = "SELECT * FROM food_item WHERE id =  $item_id";
+    $sql = "SELECT * FROM food_item WHERE id = $item_id LIMIT 1";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
+    $sql1 = "SELECT * FROM food_category WHERE client_id = $curr_client_id";
+    $result1 = $conn->query($sql1);
 
     echo " <form method=\"POST\" action=\"$_SERVER[PHP_SELF]\">";
     echo "<input type=\"number\" required class=\"form-control\"  style=\"display:none;\" id=\"item_id\" name=\"item_id\" value='$item_id'>";
+    echo "<div class=\"form-group\">
+        <label for=\"sel2\">Select list:</label>
+        <select class=\"form-control\" id=\"sel2\" name=\"sel2\">";
+    while($row1 = $result1->fetch_assoc()) {
+        if($row['category_id'] === $row1['id']){
+            echo "<option selected id = $row1[id] value='$row1[id]'> $row1[category_name]</option>";
+        }else{
+            echo "<option id = $row1[id] value='$row1[id]'> $row1[category_name]</option>";
+        }
+    }
+    echo " </select>
+   </div>";
     echo "<div class=\"form-group\">
    <label for=\"item_name\">Item Name </label> 
    <input type=\"text\" required class=\"form-control\"  style=\"text-align:right;\" id=\"item_name\" name=\"item_name\" value='$row[item_name]'>
@@ -102,9 +124,27 @@ if($food_setting == 'ANI'){
     </form>";
 }
 
+echo "<div class='row' align='center'><div class='errorMsg' style='display: none'></div></div>";
+
 
 echo "</div>";
 
 mysqli_close($conn);
 include '../_inc/footer.php';
 ?>
+
+<script>
+    $(document).ready(function(){
+        $sel1= $('#sel1');
+        if(!$sel1.has('option') && $sel1.length !== 0){
+            $ANI = $('#ANI');
+            $ANI.attr('disabled', true);
+            $ANI.css('pointer-events', 'true');
+            $errorMsg = $('.errorMsg');
+            $errorMsg.css('display', 'block');
+            $errorMsg.append("<h2>You must have at least one category to add an item!</h2>");
+
+        }
+    });
+
+</script>

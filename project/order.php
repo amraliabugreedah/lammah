@@ -11,14 +11,18 @@ $pageTitle = 'Order';
 include '../_inc/header.php';
 include '../_inc/nav.php';
 include '../_lib/db.conf.php';
+include '../_inc/main_user_info.php';
+
+
 echo "<div class=\"container\">";
+
 if(isset($_POST['addNewUser'])){
     $first_name = $_POST['first_name'];
     $last_name = isset($_POST['last_name'])?$_POST['last_name']:'';
     $mobile = $_POST['mobile_no'];
     $address = $_POST['address'];
 
-    $sql = "INSERT INTO users (first_name, last_name, mobile, address) values (\"$first_name\", \"$last_name\", $mobile, \"$address\")";
+    $sql = "INSERT INTO users (client_id, first_name, last_name, mobile, address) values ($curr_client_id, '$first_name', '$last_name', '$mobile', '$address')";
 
     if (!mysqli_query($conn, $sql)) {
         $error = substr(mysqli_error($conn), 0, 9);
@@ -47,7 +51,7 @@ if(isset($_POST['addNewUser'])){
     }else{
 
 
-        $sql = "SELECT * FROM users WHERE mobile = $mobile";
+        $sql = "SELECT * FROM users WHERE mobile = '".$mobile."' AND client_id = $curr_client_id";
         $result = $conn->query($sql);
 
         if ($result->num_rows == 1) {
@@ -58,7 +62,7 @@ if(isset($_POST['addNewUser'])){
             $ExpDeliveryDate = isset($_GET['ExpDeliveryDate'])?$_GET['ExpDeliveryDate']:null;
             if(isset($order_id)&&isset($ExpDeliveryDate)){
                 $EDD = $ExpDeliveryDate;
-                $sql1 = "UPDATE orders SET expected_delivery_time = '$EDD' WHERE  user_id = $row[id] AND id= $order_id";
+                $sql1 = "UPDATE orders SET expected_delivery_time = '$EDD' WHERE  user_id = $row[id] AND id= $order_id AND client_id = $curr_client_id";
                 $conn->query($sql1);
 
             }
@@ -73,6 +77,7 @@ if(isset($_POST['addNewUser'])){
                 $statusIcon = '../images/Warning.png';
                 $altStatus = "Warning";
             }
+
                 echo "<div class=\"row bg-1 top-buffer2\"> 
                      <div class=\"col-sm-2\"> <label>ID:</label> </div>  <div class=\"col-sm-2\"><label>" . $row["id"]. " </label></div>
                      </div>
@@ -97,7 +102,7 @@ if(isset($_POST['addNewUser'])){
                        <hr class=\"style1\">";
 
             $sql = "SELECT o.id, o.creation_time, o.expected_delivery_time, o.status, os.quantity, fi.item_name, fi.item_price FROM orders AS o INNER JOIN order_stuff AS os 
-                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $row[id] ORDER BY o.id DESC";
+                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $row[id] AND client_id = $curr_client_id ORDER BY o.id DESC";
             $result = $conn->query($sql);
             while($row = $result->fetch_assoc()){
                 $sql1 = "SELECT COUNT(*) AS total FROM order_stuff  WHERE order_id = $row[id]";
@@ -107,14 +112,14 @@ if(isset($_POST['addNewUser'])){
             echo "<table class=\"table table-hover table-bordered table-striped\">";
             echo " <thead>
       <tr>
-        <th class=\"text-center\"></th>
-        <th class=\"text-center\">Order ID</th>
-        <th class=\"text-center\">Item Name</th>
-        <th class=\"text-center\">Item Price</th>
-        <th class=\"text-center\">Item Quantity</th>
-        <th class=\"text-center\">Order Creation Time</th>
-        <th class=\"text-center\">Order Status</th>
-        <th class=\"text-center\">Expected Delivery Date</th>
+        <th class=\"text-center\" style='width: 2%'></th>
+        <th class=\"text-center\" style='width: 8%'>Order ID</th>
+        <th class=\"text-center\" style='width: 13%'>Item Name</th>
+        <th class=\"text-center\" style='width: 9%'>Item Price</th>
+        <th class=\"text-center\" style='width: 9%'>Item Quantity</th>
+        <th class=\"text-center\" style='width: 15%'>Order Creation Time</th>
+        <th class=\"text-center\" style='width: 20%'>Order Status</th>
+        <th class=\"text-center\" style='width: 15%'>Expected Delivery Date</th>
       </tr>
     </thead>";
             echo "<tbody>";
