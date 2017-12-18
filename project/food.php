@@ -251,7 +251,7 @@ include '../_inc/footer.php';
         // alert($date);
         // ;
         $('#backToUserProfile').attr('disabled', false);
-        $('#backToUserProfile').css('pointer-events', 'all')
+        $('#backToUserProfile').css('pointer-events', 'auto');
     });
 </script>
 

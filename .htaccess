@@ -1,2 +1,2 @@
 #Alternate default index page
-DirectoryIndex ./project/main.php
+DirectoryIndex ./_inc/login_form.php
