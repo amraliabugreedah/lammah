@@ -150,7 +150,7 @@ if(isset($_POST['addNewUser'])){
                     }
                 }
                 echo "<tr id=''>";
-                echo "  <td align='center' id=''>Total</td>
+                echo " <td align='center' id=''>Total</td>
                             <td align='center' id=''></td>
                            <td align='center' id=''></td>
                             <td align='center' id=''>$total_price</td>
@@ -159,7 +159,7 @@ if(isset($_POST['addNewUser'])){
                             <td align='center' id=''></td>
                                     </tr>";
             echo "</tbody>";
-            echo " </table>";
+            echo " </table>  <hr class=\"style2\">";
             echo "</div>";
             }
 

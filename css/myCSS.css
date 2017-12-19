@@ -56,6 +56,10 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button{
 hr.style1{
     border-top: 1px solid #8c8b8b;
 }
+hr.style2{
+    border-top: 3px solid #8c8b8b;
+}
+
 
 .datetimepicker1 {
     background-color: #fff ;
