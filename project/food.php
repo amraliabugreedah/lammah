@@ -91,20 +91,37 @@ echo "</div>";
                     $sql1 = "SELECT * FROM food_item WHERE category_id = $row[id]";
                     $result1 = $conn->query($sql1);
 
-                    echo "<div class=\"row top-buffer hoverRow\" align=\"right\" id='$row[id]'>";
-                    echo "<div class=\"col-sm-12 bg-1\" align='right'>";
+                    echo "<div class=\"row top-buffer hoverRow bg-1\" id='$row[id]'>";
+                    if(!isset($operation)) {
+                        echo "<div class=\"col-sm-1\" align='right'>";
+                        echo "<a  class=\"btn btn-default\" style='margin-top: 25%;' href=\"./food_settings.php?operation=Edit&field=category&id=$row[id]\">Edit</a>";
+                        echo "</div>";
+                        echo "<div class=\"col-sm-1\" >";
+                        echo "<a  class=\"btn btn-default\" style='margin-top: 25%;' href=\"./food_settings.php?operation=Delete&field=category&id=$row[id]\">Delete</a>";
+                        echo "</div>";
+                        echo "<div class=\"col-sm-10\" align='right'>";
+                        echo "<h1>".$row['category_name']."</h1>";
+                        echo "</div>";
+                    }else{
+                    echo "<div class=\"col-sm-12\" align='right'>";
                     echo "<h1>".$row['category_name']."</h1>";
                     echo "</div>";
+                    }
                     echo "</div>";
+
                     echo "<div class=\"row table-responsive foodMenuItems\" align=\"right\" style=\"display: none;\" id='$row[id]'>";
                     echo "<table class=\"table table-hover table-bordered table-striped\">";
                     echo " <thead>
-                               <tr>
-                                 <th class=\"text-center\" style='width: 25%'></th>
+                               <tr>";
+                               if($result1->num_rows == 0){
+                                   echo "<th class=\"text-center\" style='width: 25%'> You don't have items in this category, add items or delete the category.</th>";
+                               }else{
+                    echo " <th class=\"text-center\" style='width: 25%'></th>
                                  <th class=\"text-center\" style='width: 25%'>Price</th>
                                  <th class=\"text-center\" style='width: 25%'>Item Name</th>
                                </tr>
                            </thead>";
+                               }
                     echo"<tbody>";
                         while($row1 = $result1->fetch_assoc()) {
 
@@ -112,7 +129,8 @@ echo "</div>";
 
                                    echo"<tr id='$row1[id]'>";
                                    if(!isset($operation)){
-                                        echo"<td align=\"center\"> <a  class=\"btn btn-default\" href=\"./food_settings.php?operation=Edit&id=$row1[id]\">Edit</a> </td>";
+                                        echo"<td align=\"center\"> <a  class=\"btn btn-default\" href=\"./food_settings.php?operation=Edit&field=item&id=$row1[id]\">Edit</a> ";
+                                        echo "<a  class=\"btn btn-default\" href=\"./food_settings.php?operation=Delete&field=item&id=$row1[id]\">Delete</a></td>";
                                    }else{
                                        echo"<td id=$order_id data-value=$user_id align='center'> <a  class=\"btn btn-default add-remove-item-order\" id=$row1[id]>Add</a> </td>";
                                        echo"<td align=\"center\">Quantity

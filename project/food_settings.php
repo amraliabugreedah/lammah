@@ -42,6 +42,13 @@ if(isset($_POST['ANI'])){
     $conn->query($sql1);
     header("location:food.php");
 }else if(isset($_POST['Edit'])){
+    if(isset($_POST['category_id'])){
+        $category_id = $_POST['category_id'];
+        $category_name = $_POST['category_name'];
+        $sql = "UPDATE food_category SET category_name = '$category_name' WHERE id = $category_id";
+        $conn->query($sql);
+
+    }else{  /// then it's edit item
     $category_id = $_POST['sel2'];
     $item_id = $_POST['item_id'];
     $item_name = $_POST['item_name'];
@@ -49,7 +56,7 @@ if(isset($_POST['ANI'])){
 
     $sql1 = "UPDATE food_item SET category_id = $category_id, item_name = '$item_name', item_price = $item_price WHERE  id = $item_id";
     $conn->query($sql1);
-
+    }
     header("location:food.php");
 }
 
@@ -90,6 +97,23 @@ if($food_setting == 'ANI'){
  
     </form>";
 }else if($food_setting == 'Edit'){
+    $field = isset($_GET['field'])?$_GET['field']:null;
+    if($field === 'category'){
+        $category_id = $_GET['id'];
+        $sql1 = "SELECT * FROM food_category WHERE id = $category_id";
+        $result1 = $conn->query($sql1);
+        $row1 = $result1->fetch_assoc();
+
+        echo " <form method=\"POST\" action=\"$_SERVER[PHP_SELF]\">";
+        echo "<input type=\"number\" required class=\"form-control\"  style=\"display:none;\" id=\"category_id\" name=\"category_id\" value='$row1[id]'>";
+        echo "<div class=\"form-group\">
+                     <label for=\"category_name\">Category Name </label> 
+                    <input type=\"text\" required class=\"form-control\"  style=\"text-align:right;\" id=\"category_name\" name=\"category_name\" value='$row1[category_name]'>
+                    </div>";
+        echo " <input type=\"submit\"  class=\"btn btn-default\" name=\"Edit\" id=\"Edit\" value=\"Submit\">
+ 
+    </form>";
+    }else {
     $item_id = $_GET['id'];
     $sql = "SELECT * FROM food_item WHERE id = $item_id LIMIT 1";
     $result = $conn->query($sql);
@@ -122,6 +146,19 @@ if($food_setting == 'ANI'){
     echo " <input type=\"submit\"  class=\"btn btn-default\" name=\"Edit\" id=\"Edit\" value=\"Submit\">
  
     </form>";
+    }
+}else if($food_setting == 'Delete'){
+    $field = isset($_GET['field'])?$_GET['field']:null;
+    if ($field ===  'category'){
+    $category_id = $_GET['id'];
+    $sql = "DELETE FROM food_category WHERE id = $category_id";
+    $conn->query($sql);
+    }else{
+        $item_id = $_GET['id'];
+        $sql = "DELETE FROM food_item WHERE id = $item_id";
+        $conn->query($sql);
+    }
+    header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . "/project/food.php");
 }
 
 echo "<div class='row' align='center'><div class='errorMsg' style='display: none'></div></div>";
