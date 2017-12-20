@@ -57,7 +57,6 @@ include '../_inc/footer.php';
 
             },
             function(data, status){
-            console.log(data);
             if(data == false){
                 $mobile_num.removeClass("alert-success");
                 $mobile_num.addClass("alert-danger");

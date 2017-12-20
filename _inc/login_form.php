@@ -39,8 +39,6 @@ include 'header.php';
         $('.submitLoginInfo').on('click', function(){
             $username = $('#username').val();
             $password = $('#password').val();
-            // console.log($username);
-            // console.log($password);
             $.post("../_auth/login.php",
                 {
                     username: $username,

@@ -17,7 +17,7 @@ include '../_inc/main_user_info.php';
 echo "<div class=\"container\">";
 $mobile = isset($_POST['mobile_no'])?$_POST['mobile_no']:null;
 $first_name = isset($_POST['first_name'])?$_POST['first_name']:null;
-$last_name = isset($_POST['last_name'])?$_POST['last_name']:'';
+$last_name = isset($_POST['last_name'])?$_POST['last_name']:null;
 $address = isset($_POST['address'])?$_POST['address']:null;
 
 if(isset($_POST['addNewUser'])){
@@ -126,10 +126,7 @@ include '../_inc/footer.php';
     $('#order').addClass("active");
 
     if(disableUpperFuntion === false){
-        console.log("fuck");
     $(function(){
-        console.log(id);
-        console.log(orders_num);
         $.post("./get_user_orders.php",
             {
                 user_id: id,
@@ -154,9 +151,7 @@ include '../_inc/footer.php';
     $(document).on('click', '.pageNum', function(e) {
         disableUpperFuntion = true;
         $page_num = $(this).parent().attr('id');
-        console.log($page_num);
-        console.log(id);
-        console.log(orders_num);
+
         $.post("./get_user_orders.php",
             {
                 user_id: id,
@@ -173,7 +168,7 @@ include '../_inc/footer.php';
                 for($i = 1; $i<$num_pages; $i++){
                     $('.pagination').append(' <li id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
                 }
-                console.log(status);
+
             });
     });
 
