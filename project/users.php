@@ -14,8 +14,8 @@ include '../_lib/db.conf.php';
 include '../_inc/main_user_info.php';
 
 
-echo "Hello Lammah";
 
+mysqli_close($conn);
 include '../_inc/footer.php';
 ?>
 

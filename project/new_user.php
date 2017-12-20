@@ -11,7 +11,13 @@ $pageTitle = 'New User';
 include '../_inc/header.php';
 include '../_inc/nav.php';
 include '../_lib/db.conf.php';
+include '../_inc/main_user_info.php';
 
+
+
+
+
+if(!isset($_POST['addNewUser']) && $_SERVER['REQUEST_METHOD'] !== 'POST'){
 echo "<div class=\"container\">";
 echo " <form method=\"post\" action=\"order.php\">
   <div class=\"form-group\">
@@ -30,14 +36,41 @@ echo " <form method=\"post\" action=\"order.php\">
   <label for=\"address\"> Address:   </label>    
    <input type=\"text\" required class=\"form-control\" id=\"address\" placeholder=\"Enter Address\" name=\"address\">
   </div>
-  <input type=\"submit\"  class=\"btn btn-default\" name=\"addNewUser\" id=\"addNewUser\" value=\"Submit\">
+  <input type=\"submit\"  class=\"btn btn-default\" style='pointer-events: none' disabled name=\"addNewUser\" id=\"addNewUser\" value=\"Submit\">
 </form> ";
 
 echo "</div>";
+}
 include '../_inc/footer.php';
 ?>
 
 <script>
     $('#newUser').addClass("active");
+
+    $mobile_num = $('#mobile_no');
+    $mobile_num.on('blur', function(){
+        $mobile = $(this).val();
+        $addNewUser = $('#addNewUser');
+        $.post("./check_user_email.php",
+            {
+                mobile_no: $mobile
+
+            },
+            function(data, status){
+            console.log(data);
+            if(data == false){
+                $mobile_num.removeClass("alert-success");
+                $mobile_num.addClass("alert-danger");
+                $addNewUser.attr('disabled', true);
+                $addNewUser.css('pointer-events', 'none');
+            }else{
+                $mobile_num.removeClass("alert-danger");
+                $mobile_num.addClass("alert-success");
+                $addNewUser.attr('disabled', false);
+                $addNewUser.css('pointer-events', 'auto');
+            }
+            });
+    });
+
 </script>
 

@@ -1,2 +1,10 @@
 #Alternate default index page
 DirectoryIndex ./_inc/login_form.php
+
+
+#
+#RewriteEngine on
+#Options +FollowSymlinks
+#RewriteBase /
+#
+#RewriteRule ^project/order.php(.*) search.php?search=$1 [R]

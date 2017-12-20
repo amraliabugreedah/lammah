@@ -15,31 +15,18 @@ include '../_inc/main_user_info.php';
 
 
 echo "<div class=\"container\">";
+$mobile = isset($_POST['mobile_no'])?$_POST['mobile_no']:null;
+$first_name = isset($_POST['first_name'])?$_POST['first_name']:null;
+$last_name = isset($_POST['last_name'])?$_POST['last_name']:'';
+$address = isset($_POST['address'])?$_POST['address']:null;
 
 if(isset($_POST['addNewUser'])){
-    $first_name = $_POST['first_name'];
-    $last_name = isset($_POST['last_name'])?$_POST['last_name']:'';
-    $mobile = $_POST['mobile_no'];
-    $address = $_POST['address'];
-
     $sql = "INSERT INTO users (client_id, first_name, last_name, mobile, address) values ($curr_client_id, '$first_name', '$last_name', '$mobile', '$address')";
-
-    if (!mysqli_query($conn, $sql)) {
-        $error = substr(mysqli_error($conn), 0, 9);
-        if($error == "Duplicate"){
-            echo "<h1> $mobile is already registered.<h1>";
-        }else{
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
-    }else{
-        header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . "/project/order.php?mobile_no=$mobile");
-    }
-
-}else{
-    $mobile = isset($_GET['mobile_no'])?$_GET['mobile_no']:null;
+    $conn->query($sql);
+}
     if(!isset($_POST['getUser']) && !isset($mobile)){
 
-        echo " <form method=\"GET\" action=\"order.php\">
+        echo " <form method=\"post\" action=\"order.php\">
   <div class=\"form-group\">
    <label for=\"mobile_no\">Search </label> 
    <input type=\"number\" required class=\"form-control\" id=\"mobile_no\" placeholder=\"Enter Mobile Number\" name=\"mobile_no\">
@@ -51,7 +38,7 @@ if(isset($_POST['addNewUser'])){
     }else{
 
 
-        $sql = "SELECT * FROM users WHERE mobile = '".$mobile."' AND client_id = $curr_client_id";
+        $sql = "SELECT * FROM users WHERE mobile = '$mobile' AND client_id = $curr_client_id";
         $result = $conn->query($sql);
 
         if ($result->num_rows == 1) {
@@ -127,7 +114,7 @@ if(isset($_POST['addNewUser'])){
         }
 
     }
-}
+
 
 
 echo "</div>";
