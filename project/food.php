@@ -117,6 +117,7 @@ echo "</div>";
                                    echo "<th class=\"text-center\" style='width: 25%'> You don't have items in this category, add items or delete the category.</th>";
                                }else{
                     echo " <th class=\"text-center\" style='width: 25%'></th>
+                                 <th class=\"text-center\" style='width: 25%'>Quantity</th>
                                  <th class=\"text-center\" style='width: 25%'>Price</th>
                                  <th class=\"text-center\" style='width: 25%'>Item Name</th>
                                </tr>
@@ -133,7 +134,7 @@ echo "</div>";
                                         echo "<a  class=\"btn btn-default\" href=\"./food_settings.php?operation=Delete&field=item&id=$row1[id]\">Delete</a></td>";
                                    }else{
                                        echo"<td id=$order_id data-value=$user_id align='center'> <a  class=\"btn btn-default add-remove-item-order\" id=$row1[id]>Add</a> </td>";
-                                       echo"<td align=\"center\">Quantity
+                                       echo"<td align=\"center\">
                                         <input type=\"number\" min=\"1\" style='width: 40px; ' value='1' id=\"QTY\" name=\"QTY\"> </td>";
                                    }
                                         echo"<td align='center' id='$row1[item_price]'>" . $row1['item_price'] . "</td>
