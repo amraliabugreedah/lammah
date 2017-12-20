@@ -45,8 +45,8 @@ if(isset($_POST['addNewUser'])){
             // output data of each row
             $row = $result->fetch_assoc();
 
-            $order_id = isset($_GET['order_id'])?$_GET['order_id']:null;
-            $ExpDeliveryDate = isset($_GET['ExpDeliveryDate'])?$_GET['ExpDeliveryDate']:null;
+            $order_id = isset($_POST['order_id'])?$_POST['order_id']:null;
+            $ExpDeliveryDate = isset($_POST['ExpDeliveryDate'])?$_POST['ExpDeliveryDate']:null;
             if(isset($order_id)&&isset($ExpDeliveryDate)){
                 $EDD = $ExpDeliveryDate;
                 $sql1 = "UPDATE orders SET expected_delivery_time = '$EDD' WHERE  user_id = $row[id] AND id= $order_id AND client_id = $curr_client_id";
@@ -92,7 +92,10 @@ if(isset($_POST['addNewUser'])){
                        <div class=\"col-sm-2\"> <label>Status:</label> </div>  <div class=\"col-sm-2\"><label> <img src=$statusIcon alt=$altStatus height=\"22\" width=\"22\"></label> </div>
                        </div>
                        <div class=\"row top-buffer\"> 
-                       <div class=\"col-sm-2\"> <a href='./food.php?id=$row[id]&operation=NewOrder' type='button' class='btn btn-default'>New Order</a></div>
+                       <form method=\"post\" action=\"food.php\">
+                       <input hidden type='text' id='user_id' name='user_id' value='$row[id]'>
+                       <div class=\"col-sm-2\"> <input id = 'NewOrder' name='NewOrder' type='submit' class='btn btn-default' value='New Order'></div>
+                       </form>
                        </div> 
                        <hr class=\"style1\">";
 

@@ -15,8 +15,8 @@ include '../_inc/main_user_info.php';
 
 echo "<div class=\"container\">";
 
-if(isset($_GET['operation']) == "NewOrder"){
-    $user_id = isset($_GET['id'])?$_GET['id']:null;
+if(isset($_POST['NewOrder'])){
+    $user_id = isset($_POST['user_id'])?$_POST['user_id']:null;
     $operation =  'NewOrder';
 
     $sql = "INSERT INTO orders (client_id, user_id) VALUES ($curr_client_id, $user_id)";
@@ -40,7 +40,14 @@ if(isset($_GET['operation']) == "NewOrder"){
 
 
 echo "<div class=\"row top-buffer\">";
-echo"<div class=\"col-sm-3\"><a href='./order.php?mobile_no=$user_mobile&getUser=Submit&order_id=$order_id' style='pointer-events: none;' disabled type='button' id ='backToUserProfile' class='btn btn-default'>Back To User Profile</a> </div>";
+echo"<div class=\"col-sm-3\">
+        <form action='order.php' method='post'>
+         <input hidden type='text' id='ExpDeliveryDate' name='ExpDeliveryDate'>
+         <input hidden type='text' id='mobile_no' name='mobile_no' value='$user_mobile'>
+         <input hidden type='text' id='order_id' name='order_id' value='$order_id'>
+        <input type='submit' name='getUser' style='pointer-events: none;' disabled  id ='backToUserProfile'  value='Back To User Profile' class='btn btn-default'>
+         </form>
+         </div>";
     echo"<div class='col-sm-3'> <label style='margin-top:8px; '>Enter The Expected Delivery Date:</label></div>";
     echo"<div class='col-sm-6'>
             <div class=\"form-group\">
@@ -116,9 +123,11 @@ echo "</div>";
                                if($result1->num_rows == 0){
                                    echo "<th class=\"text-center\" style='width: 25%'> You don't have items in this category, add items or delete the category.</th>";
                                }else{
-                    echo " <th class=\"text-center\" style='width: 25%'></th>
-                                 <th class=\"text-center\" style='width: 25%'>Quantity</th>
-                                 <th class=\"text-center\" style='width: 25%'>Price</th>
+                    echo " <th class=\"text-center\" style='width: 25%'></th>";
+                                                if(isset($operation)){
+                                 echo "<th class=\"text-center\" style='width: 25%'>Quantity</th>";
+                                 }
+                                  echo "<th class=\"text-center\" style='width: 25%'>Price</th>
                                  <th class=\"text-center\" style='width: 25%'>Item Name</th>
                                </tr>
                            </thead>";
@@ -266,23 +275,9 @@ include '../_inc/footer.php';
     });
 
     $('#expectedDeliveryDate').on('mouseenter mouseleave click focus blur',function(){
-        $backToUserProfile = $('#backToUserProfile');
-        $backBTNHref = $backToUserProfile.attr('href');
-         $date = $('#datetimepicker1').data("DateTimePicker").date().format("YYYY-MM-DD HH:mm:ss");
-        // alert($('#datetimepicker1').data("DateTimePicker").date());
-        $strLength = $backBTNHref.length;
-        $newHref = '';
-        $flag= 0;
-        for($i = 0; $i <$strLength; $i++){
-            if($backBTNHref.charAt($i)==='&' && $flag===2){
-                break;
-            }else {
-                $newHref = $newHref + $backBTNHref.charAt($i);
-                if($backBTNHref.charAt($i)==='&'){
-                $flag++;
-                }
-            }
-        }
+        $ExpDeliveryDate = $('#ExpDeliveryDate');
+        $date = $('#datetimepicker1').data("DateTimePicker").date().format("YYYY-MM-DD HH:mm:ss");
+        $ExpDeliveryDate.attr('value', $date);
         if($permission_to_show_order_item_table === true){
             $backToUserProfile = $('#backToUserProfile');
             $backToUserProfile.attr('disabled', false);
@@ -290,11 +285,6 @@ include '../_inc/footer.php';
         }
         $permission_to_show_deliver_date = true;
 
-        // alert($newHref);
-        $backToUserProfile.attr('href', $newHref + '&ExpDeliveryDate='+$date);
-        // alert($('#backToUserProfile').attr('href'));
-        // alert($date);
-        // ;
     });
 </script>
 
