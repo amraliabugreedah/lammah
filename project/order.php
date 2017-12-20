@@ -78,6 +78,11 @@ if(isset($_POST['addNewUser'])){
                 $altStatus = "Warning";
             }
 
+            $sql2 = "SELECT COUNT(DISTINCT o.id) AS total FROM orders AS o INNER JOIN order_stuff AS os 
+                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $row[id] AND client_id = $curr_client_id";
+            $result2 = $conn->query($sql2);
+            $row2 = $result2->fetch_assoc();
+
                 echo "<div class=\"row bg-1 top-buffer2\"> 
                      <div class=\"col-sm-2\"> <label>ID:</label> </div>  <div class=\"col-sm-2\"><label>" . $row["id"]. " </label></div>
                      </div>
@@ -94,6 +99,9 @@ if(isset($_POST['addNewUser'])){
                        <div class=\"col-sm-2\"> <label>Address:</label> </div>  <div class=\"col-sm-2\"><label> " . $row["address"] . "</label> </div>
                        </div>
                        <div class=\"row bg-1 top-buffer2\"> 
+                       <div class=\"col-sm-2\"> <label>Number Of Orders:</label> </div>  <div class=\"col-sm-2\"><label> " . $row2["total"] . "</label> </div>
+                       </div>
+                       <div class=\"row bg-1 top-buffer2\"> 
                        <div class=\"col-sm-2\"> <label>Status:</label> </div>  <div class=\"col-sm-2\"><label> <img src=$statusIcon alt=$altStatus height=\"22\" width=\"22\"></label> </div>
                        </div>
                        <div class=\"row top-buffer\"> 
@@ -106,10 +114,7 @@ if(isset($_POST['addNewUser'])){
 
                         echo "<div class='userOrders'></div>";
 
-            $sql2 = "SELECT count(*) AS total FROM orders AS o INNER JOIN order_stuff AS os 
-                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $row[id] AND client_id = $curr_client_id";
-            $result2 = $conn->query($sql2);
-            $row2 = $result2->fetch_assoc();
+
             echo "<script>var orders_num = $row2[total];</script>";
                         echo "<div class='' align='center'>
                             <ul class=\"pagination\">
