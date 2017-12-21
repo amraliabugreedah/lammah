@@ -19,11 +19,21 @@ $mobile = isset($_POST['mobile_no'])?$_POST['mobile_no']:null;
 $first_name = isset($_POST['first_name'])?$_POST['first_name']:null;
 $last_name = isset($_POST['last_name'])?$_POST['last_name']:null;
 $address = isset($_POST['address'])?$_POST['address']:null;
+$status_num = isset($_POST['status_num'])?$_POST['status_num']:null;
+$user_id = isset($_POST['user_id'])?$_POST['user_id']:null;
 
 if(isset($_POST['addNewUser'])){
     $sql = "INSERT INTO users (client_id, first_name, last_name, mobile, address) values ($curr_client_id, '$first_name', '$last_name', '$mobile', '$address')";
     $conn->query($sql);
 }
+
+if(isset($status_num)){
+    $sql = "UPDATE users SET status = $status_num WHERE id = $user_id";
+    $conn->query($sql);
+    echo  $sql;
+    exit;
+}
+
     if(!isset($_POST['getUser']) && !isset($mobile)){
 
         echo " <form method=\"post\" action=\"order.php\">
@@ -61,11 +71,11 @@ if(isset($_POST['addNewUser'])){
                 $statusIcon = '../images/ok.ico';
                 $altStatus = "Ok";
             }else if($row['status'] == -1){
-                $statusIcon = '../images/Warning.png';
+                $statusIcon = '../images/warning.png';
                 $altStatus = "Warning";
             }
 
-            $sql2 = "SELECT COUNT(DISTINCT o.id) AS total FROM orders AS o INNER JOIN order_stuff AS os 
+            $sql2 = "SELECT COUNT(DISTINCT o.id) AS total, SUM(fi.item_price) AS total_paid FROM orders AS o INNER JOIN order_stuff AS os 
                     ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $row[id] AND client_id = $curr_client_id";
             $result2 = $conn->query($sql2);
             $row2 = $result2->fetch_assoc();
@@ -87,9 +97,23 @@ if(isset($_POST['addNewUser'])){
                        </div>
                        <div class=\"row bg-1 top-buffer2\"> 
                        <div class=\"col-sm-2\"> <label>Number Of Orders:</label> </div>  <div class=\"col-sm-2\"><label> " . $row2["total"] . "</label> </div>
+                       </div> 
+                       <div class=\"row bg-1 top-buffer2\"> 
+                       <div class=\"col-sm-2\"> <label>Total Paid:</label> </div>  <div class=\"col-sm-2\"><label> " . $row2["total_paid"] . " EGP</label> </div>
                        </div>
                        <div class=\"row bg-1 top-buffer2\"> 
-                       <div class=\"col-sm-2\"> <label>Status:</label> </div>  <div class=\"col-sm-2\"><label> <img src=$statusIcon alt=$altStatus height=\"22\" width=\"22\"></label> </div>
+                       <div class=\"col-sm-2\"> <label>Status:</label> </div>  <div class=\"col-sm-2\"><label>
+                        
+                            <div class=\"dropdown\">
+                              <a class=\"dropbtn\"> <img src=$statusIcon alt=$altStatus height=\"22\" width=\"22\"></a>
+                              <div class=\"dropdown-content\" >
+                                <a href=\"#\" class='status_img'><img src='../images/alert.ico' id='$row[id]' alt='Alert' height=\"22\" width=\"22\"></a>
+                                <a href=\"#\" class='status_img'><img src='../images/ok.ico' id='$row[id]' alt='Ok' height=\"22\" width=\"22\"></a>
+                                <a href=\"#\" class='status_img'><img src='../images/warning.png' id='$row[id]' alt='Warning' height=\"22\" width=\"22\"></a>
+                              </div>
+                            </div>                          
+                        </label> </div>
+                       
                        </div>
                        <div class=\"row top-buffer\"> 
                        <form method=\"post\" action=\"food.php\">
@@ -146,7 +170,6 @@ include '../_inc/footer.php';
                 for($i = 1; $i<$num_pages; $i++){
                     $('.pagination').append(' <li id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
                 }
-                console.log(status);
                 disableUpperFuntion = true;
             });
     });
@@ -175,7 +198,28 @@ include '../_inc/footer.php';
             });
     });
 
+ $('.status_img').on('click', function(){
+     $status_img_url = $(this).find('img').attr('src');
 
+     if($status_img_url === '../images/alert.ico'){
+         $status_num = 0;
+     }else if($status_img_url === '../images/ok.ico'){
+         $status_num = 1;
+     }else{
+         $status_num = -1;
+     }
+     $user_id = $(this).find('img').attr('id');
+     $.post("./order.php",
+         {
+             status_num: $status_num,
+             user_id: $user_id
+         },
+         function(data, status){
+         if(status === "success"){
+             $('.dropbtn').find('img').attr('src', $status_img_url);
+         }
+         });
+ });
 
 
 
