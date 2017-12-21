@@ -84,10 +84,14 @@ echo "</div>";
   if (!isset($operation)){
         echo "<div class=\"row button-box\">";
             echo "<div class=\"col-sm-6 \">";
-            echo "<a  class=\"btn btn-default\" href=\"./food_settings.php?operation=ANI\">Add New Item</a>";
+            echo "<form method='post' action='food_settings.php'>
+            <input type='submit' name='start_operation' id='start_operation' class=\"btn btn-default\" value='Add New Item'>
+            </form>";
             echo "</div>";
             echo "<div class=\"col-sm-6 \">";
-            echo "<a  class=\"btn btn-default\" href=\"./food_settings.php?operation=ANG\">Add New Category</a>";
+            echo "<form method='post' action='food_settings.php'>
+                   <input type='submit' name='start_operation' id='start_operation' class=\"btn btn-default\" value='Add New Category'>
+                   </form>";
             echo "</div>";
          echo "</div>";
   }
@@ -101,10 +105,16 @@ echo "</div>";
                     echo "<div class=\"row top-buffer hoverRow bg-1\" id='$row[id]'>";
                     if(!isset($operation)) {
                         echo "<div class=\"col-sm-1\" align='right'>";
-                        echo "<a  class=\"btn btn-default\" style='margin-top: 25%;' href=\"./food_settings.php?operation=Edit&field=category&id=$row[id]\">Edit</a>";
+                        echo "<form method='post' action='food_settings.php'>
+                              <input type='text' name='category_id' id='category_id' hidden value='$row[id]'>
+                              <input type='submit' style='margin-top: 25%;' name='start_operation' id='start_operation' class=\"btn btn-default\" value='Edit'>
+                              </form>";
                         echo "</div>";
                         echo "<div class=\"col-sm-1\" >";
-                        echo "<a  class=\"btn btn-default\" style='margin-top: 25%;' href=\"./food_settings.php?operation=Delete&field=category&id=$row[id]\">Delete</a>";
+                        echo "<form method='post' action='food_settings.php'>
+                              <input type='text' name='category_id' id='category_id' hidden value='$row[id]'>
+                              <input type='submit' style='margin-top: 25%;' name='start_operation' id='start_operation' class=\"btn btn-default\" value='Delete'>
+                              </form>";
                         echo "</div>";
                         echo "<div class=\"col-sm-10\" align='right'>";
                         echo "<h1>".$row['category_name']."</h1>";
@@ -139,8 +149,13 @@ echo "</div>";
 
                                    echo"<tr id='$row1[id]'>";
                                    if(!isset($operation)){
-                                        echo"<td align=\"center\"> <a  class=\"btn btn-default\" href=\"./food_settings.php?operation=Edit&field=item&id=$row1[id]\">Edit</a> ";
-                                        echo "<a  class=\"btn btn-default\" href=\"./food_settings.php?operation=Delete&field=item&id=$row1[id]\">Delete</a></td>";
+                                        echo"<td align=\"center\"> 
+                                                <form method='post' action='food_settings.php'>
+                                                   <input type='text' name='item_id' id='item_id' hidden value='$row1[id]'>
+                                                   <input type='submit' name='start_operation' id='start_operation' class=\"btn btn -default\" value='Edit'>
+                                                   <input type='submit' name='start_operation' id='start_operation' class=\"btn btn -default\" value='Delete'>
+                                                 </form>
+                                                 </td>";
                                    }else{
                                        echo"<td id=$order_id data-value=$user_id align='center'> <a  class=\"btn btn-default add-remove-item-order\" id=$row1[id]>Add</a> </td>";
                                        echo"<td align=\"center\">

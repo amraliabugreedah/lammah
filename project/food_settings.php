@@ -13,7 +13,10 @@ include '../_lib/db.conf.php';
 include '../_inc/main_user_info.php';
 
 
-$food_setting = isset($_GET['operation'])?$_GET['operation']:null;
+$food_setting = isset($_POST['start_operation'])?$_POST['start_operation']:null;
+$category_id = isset($_POST['category_id'])?$_POST['category_id']:null;
+//$item_id = isset($_POST['item_id'])?$_POST['item_id']:null;
+
 $operation =  isset($_POST['operation'])?$_POST['operation']:null;
 $item_id = isset($_POST['item_id'])?$_POST['item_id']:null;
 $user_id = isset($_POST['user_id'])?$_POST['user_id']:null;
@@ -63,7 +66,7 @@ if(isset($_POST['ANI'])){
 echo "<div class=\"container\" align='right'>";
 
 
-if($food_setting == 'ANI'){
+if($food_setting == 'Add New Item'){
     $sql = "SELECT * FROM food_category WHERE client_id = $curr_client_id";
     $result = $conn->query($sql);
 
@@ -87,7 +90,7 @@ if($food_setting == 'ANI'){
    </div>";
     echo " <input type=\"submit\"  class=\"btn btn-default\" name=\"ANI\" id=\"ANI\" value=\"Submit\">
 </form> ";
-}else if($food_setting == 'ANG'){
+}else if($food_setting == 'Add New Category'){
     echo " <form method=\"POST\" action=\"$_SERVER[PHP_SELF]\">";
     echo "<div class=\"form-group\">
    <label for=\"category_name\">Category Name </label> 
@@ -97,9 +100,7 @@ if($food_setting == 'ANI'){
  
     </form>";
 }else if($food_setting == 'Edit'){
-    $field = isset($_GET['field'])?$_GET['field']:null;
-    if($field === 'category'){
-        $category_id = $_GET['id'];
+    if(isset($category_id)){
         $sql1 = "SELECT * FROM food_category WHERE id = $category_id";
         $result1 = $conn->query($sql1);
         $row1 = $result1->fetch_assoc();
@@ -113,8 +114,7 @@ if($food_setting == 'ANI'){
         echo " <input type=\"submit\"  class=\"btn btn-default\" name=\"Edit\" id=\"Edit\" value=\"Submit\">
  
     </form>";
-    }else {
-    $item_id = $_GET['id'];
+    }else if(isset($item_id)){
     $sql = "SELECT * FROM food_item WHERE id = $item_id LIMIT 1";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
@@ -148,13 +148,10 @@ if($food_setting == 'ANI'){
     </form>";
     }
 }else if($food_setting == 'Delete'){
-    $field = isset($_GET['field'])?$_GET['field']:null;
-    if ($field ===  'category'){
-    $category_id = $_GET['id'];
+    if (isset($category_id)){
     $sql = "DELETE FROM food_category WHERE id = $category_id";
     $conn->query($sql);
-    }else{
-        $item_id = $_GET['id'];
+    }else if (isset($item_id)){
         $sql = "DELETE FROM food_item WHERE id = $item_id";
         $conn->query($sql);
     }
