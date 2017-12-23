@@ -24,8 +24,6 @@ if($orders_num < 5){
 
 $result = $conn->query($sql);
 while($row = $result->fetch_assoc()){
-    $sql1 = "SELECT COUNT(*) AS total FROM order_stuff  WHERE order_id = $row[id]";
-    $result1 = $conn->query($sql1);
 
         $sql2 = "SELECT o.id, o.creation_time, o.expected_delivery_time, o.status, os.quantity, fi.item_name, fi.item_price FROM orders AS o INNER JOIN order_stuff AS os 
                     ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE o.id = $row[id] AND os.user_id = $id AND client_id = $curr_client_id ORDER BY o.expected_delivery_time, o.id, fi.item_name ASC";
