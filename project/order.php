@@ -189,10 +189,11 @@ include '../_inc/footer.php';
                 $userOrdersDiv.empty();
                 $userOrdersDiv.append(data);
                 $num_pages = orders_num/4;
-                $('.pagination').empty();
-                $('.pagination').append(' <li id ="1"><a class="pageNum">1</a></li>');
+                $pagination = $('.pagination');
+                $pagination.empty();
+                $pagination.append(' <li id ="1"><a class="pageNum">1</a></li>');
                 for($i = 1; $i<$num_pages; $i++){
-                    $('.pagination').append(' <li id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
+                    $pagination.append(' <li id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
                 }
 
             });
