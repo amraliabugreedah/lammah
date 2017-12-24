@@ -22,14 +22,13 @@ if(isset($_POST['submitLoginInfo'])) {
     $active = $row['active'];
     $validPassword = password_verify($mypassword, $row['clientpassword']);
 
-        // If result matched $myusername and $mypassword, table row must be 1 row
 
         if($validPassword) {
             $_SESSION['logged_client'] = $myusername;
         }
         else {
 
-            echo "<h2>Your Login Name or Password is invalid!</h2>";
+            echo "<h2>Your Username or Password is invalid!</h2>";
         }
     }else {
 
