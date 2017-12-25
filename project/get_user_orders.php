@@ -31,16 +31,16 @@ while($row = $result->fetch_assoc()){
     $result2 = $conn->query($sql2);
 
     echo "<div class=\"row table-responsive\" align=\"center\" style=\"display: block;\" id=''>";
-    echo "<table class=\"table table-hover table-bordered table-striped\">";
+    echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
     echo " <thead>
       <tr>
         <th class=\"text-center\" style='width: 2%'></th>
         <th class=\"text-center\" style='width: 8%'>Order ID</th>
-        <th class=\"text-center\" style='width: 13%'>Item Name</th>
-        <th class=\"text-center\" style='width: 9%'>Item Price</th>
-        <th class=\"text-center\" style='width: 9%'>Item Quantity</th>
-        <th class=\"text-center\" style='width: 15%'>Order Creation Time</th>
+        <th class=\"text-center\" data-sort=\"text\" style='width: 13%'>Item Name <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" data-sort=\"num\" style='width: 9%'>Item Price <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" data-sort=\"num\" style='width: 11%'>Item Quantity <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
         <th class=\"text-center\" style='width: 20%'>Order Status</th>
+        <th class=\"text-center\" style='width: 15%'>Order Creation Time</th>
         <th class=\"text-center\" style='width: 15%'>Expected Delivery Date</th>
       </tr>
     </thead>";
@@ -55,8 +55,7 @@ while($row = $result->fetch_assoc()){
                             <td align='center' id=''>" . $row2['id'] . "</td>
                             <td align='center' id=''>" . $row2["item_name"] . "</td>
                             <td align='center' id=''>" . $row2["item_price"] . "</td>
-                            <td align='center' id=''>" . $row2["quantity"] . "</td>
-                            <td align='center' id=''>" . $row2["creation_time"] . "</td>";
+                            <td align='center' id=''>" . $row2["quantity"] . "</td>";
         if ($row2["status"] == 1) {
             echo "<td align='center' id=''>Delivered</td>";
         } else if ($row2["status"] == 0) {
@@ -64,10 +63,12 @@ while($row = $result->fetch_assoc()){
         } else if ($row2["status"] == -1) {
             echo "<td align='center' id=''>Cancelled</td>";
         }
-        echo "<td align='center' id=''>" . $row2["expected_delivery_time"] . "</td>";
+        echo "   <td align='center' id=''>" . $row2["creation_time"] . "</td>
+        
+        <td align='center' id=''>" . $row2["expected_delivery_time"] . "</td>";
         echo "</tr>";
     }
-    echo "<tr id=''>";
+    echo "<tr class='staticRow'>";
     echo " <td align='center' id=''>Total</td>
                             <td align='center' id=''></td>
                            <td align='center' id=''></td>
