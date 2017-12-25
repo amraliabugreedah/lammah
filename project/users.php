@@ -13,6 +13,24 @@ include '../_inc/nav.php';
 include '../_lib/db.conf.php';
 include '../_inc/main_user_info.php';
 
+
+    echo "<div class=\"table-resiponsve col-lg-10\" align=\"center\" style=\"display: block;\" id=''>";
+    echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
+    echo " <thead>
+      <tr>
+        <th class=\"text-center\" data-sort=\"num\" >User ID  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" data-sort=\"text\" >First Name  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" data-sort=\"text\" >Last Name  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" >Mobile</th>
+        <th class=\"text-center\" >Address</th>
+        <th class=\"text-center\" >Status</th>
+        <th class=\"text-center\" data-sort=\"num\" >Total Number Of Orders <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" data-sort=\"num\" >Total Paid  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" data-sort=\"date\">Creation Time  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" data-sort=\"date\" >Last Order Date  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+      </tr>
+    </thead>";
+    echo "<tbody>";
 $sql = "SELECT * FROM users WHERE client_id = $curr_client_id";
 $result = $conn->query($sql);
 
@@ -22,24 +40,6 @@ while($row = $result->fetch_assoc()){
                     ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $row[id] AND client_id = $curr_client_id";
     $result2 = $conn->query($sql2);
     $row2 = $result2->fetch_assoc();
-
-    echo "<div class=\"table-resiponsve col-lg-7\" align=\"center\" style=\"display: block;\" id=''>";
-    echo "<table class=\"table table-hover table-bordered table-striped\">";
-    echo " <thead>
-      <tr>
-        <th class=\"text-center\" style='width: 2%'>User ID</th>
-        <th class=\"text-center\" style='width: 8%'>First Name</th>
-        <th class=\"text-center\" style='width: 13%'>Last Name</th>
-        <th class=\"text-center\" style='width: 9%'>Mobile</th>
-        <th class=\"text-center\" style='width: 9%'>Address</th>
-        <th class=\"text-center\" style='width: 15%'>Status</th>
-        <th class=\"text-center\" style='width: 15%'>Total Number Of Orders</th>
-        <th class=\"text-center\" style='width: 15%'>Total Paid</th>
-        <th class=\"text-center\" style='width: 20%'>Creation Time</th>
-        <th class=\"text-center\" style='width: 15%'>Last Order Date</th>
-      </tr>
-    </thead>";
-    echo "<tbody>";
         echo "<tr id=''>";
         echo "              <td align='center' id=''>" . $row['id'] . "</td>
                             <td align='center' id=''>" . $row["first_name"] . "</td>
@@ -54,15 +54,19 @@ while($row = $result->fetch_assoc()){
             echo "<td align='center' id=''><img src='../images/warning.png' id='$row[id]' alt='Warning' height=\"22\" width=\"22\"></td>";
         }
         echo "<td align='center' id=''>" . $row2["total"] . "</td>";
+        if( $row2["total_paid"] == 0){
+            echo "<td align='center' id=''>0</td>";
+        }else{
         echo "<td align='center' id=''>" . $row2["total_paid"] . "</td>";
+        }
         echo "<td align='center' id=''>" . $row["creation_time"] . "</td>";
         echo "  <td align='center' id=''>" . $row["last_order_date"] . "</td>";
         echo "</tr>";
-
+}
     echo "</tbody>";
     echo " </table>  <hr class=\"style2\">";
     echo "</div>";
-}
+
 
 
 
