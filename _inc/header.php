@@ -8,6 +8,8 @@
         <meta charset="utf8_general_ci">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/bower_components/jquery-tablesorter/jquery-tablesorter.js"></script>
+        <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.min.css">
         <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
         <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
