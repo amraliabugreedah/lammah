@@ -1,0 +1,15 @@
+{
+  "name": "jquery-tablesorter",
+  "homepage": "https://github.com/zevero/jquery-tablesorter",
+  "version": "1.0.1",
+  "_release": "1.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.1",
+    "commit": "bfa95dfb370080089a45588236edf2ef0216b474"
+  },
+  "_source": "https://github.com/zevero/jquery-tablesorter.git",
+  "_target": "^1.0.1",
+  "_originalSource": "jquery-tablesorter",
+  "_direct": true
+}

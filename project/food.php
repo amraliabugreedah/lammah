@@ -64,19 +64,19 @@ echo "</div>";
 echo "<div class=\"row table-responsive orderItemsAdded top-buffer\" style=\"display: none;\" id='orderItemsAdded'>";
 
 
-echo "<table class=\"table table-hover table-bordered table-striped\">";
+echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
 echo " <thead>
       <tr>
         <th> </th>
         <th> </th>
-        <th class=\"text-center\" style='width: 25%'>Total Item Price</th>
-        <th class=\"text-center\" style='width: 25%'>Quantity</th>
-        <th class=\"text-center\" style='width: 25%'>Price</th>
-        <th class=\"text-center\" style='width: 25%'>Item Name</th>
+        <th class=\"text-center\" data-sort=\"num\"  style='width: 25%'>Total Item Price <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" data-sort=\"num\"  style='width: 25%'>Quantity <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" data-sort=\"num\"  style='width: 25%'>Price <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center\" data-sort=\"text\" style='width: 25%'>Item Name <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
       </tr>
     </thead>";
 echo"<tbody>";
-   echo "<tr class='totalOfOrder'><td align='center'>Grand Total</td><td></td><td align='center' class='totalItemPrice'></td><td align='center' class='totalQTY'></td><td></td><td></td></tr>";
+   echo "<tr class='totalOfOrder staticRow'><td align='center'>Grand Total</td><td></td><td align='center' class='totalItemPrice'></td><td align='center' class='totalQTY'></td><td></td><td></td></tr>";
 echo "</tbody>";
 echo " </table>";
 echo "</div>";
@@ -127,7 +127,7 @@ echo "</div>";
                     echo "</div>";
 
                     echo "<div class=\"row table-responsive foodMenuItems\" align=\"right\" style=\"display: none;\" id='$row[id]'>";
-                    echo "<table class=\"table table-hover table-bordered table-striped\">";
+                    echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
                     echo " <thead>
                                <tr>";
                                if($result1->num_rows == 0){
@@ -135,10 +135,10 @@ echo "</div>";
                                }else{
                     echo " <th class=\"text-center\" style='width: 25%'></th>";
                                                 if(isset($operation)){
-                                 echo "<th class=\"text-center\" style='width: 25%'>Quantity</th>";
+                                 echo "<th  data-sort=\"num\" class=\"text-center\" style='width: 25%'>Quantity <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>";
                                  }
-                                  echo "<th class=\"text-center\" style='width: 25%'>Price</th>
-                                 <th class=\"text-center\" style='width: 25%'>Item Name</th>
+                                  echo "<th  data-sort=\"num\" class=\"text-center\" style='width: 25%'>Price <i class=\"fa fa-sort\"  aria-hidden=\"true\"></i></th>
+                                 <th  data-sort=\"text\" class=\"text-center\" style='width: 25%'>Item Name <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
                                </tr>
                            </thead>";
                                }

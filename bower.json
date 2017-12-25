@@ -17,6 +17,8 @@
   ],
   "dependencies": {
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "jquery-tablesorter": "^1.0.1",
+    "components-font-awesome": "^4.7.0"
   }
 }
