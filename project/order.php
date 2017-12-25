@@ -16,6 +16,7 @@ include '../_inc/main_user_info.php';
 
 echo "<div class=\"container\">";
 $mobile = isset($_POST['mobile_no'])?$_POST['mobile_no']:null;
+if(!isset($mobile)){$mobile = isset($_GET['mobile_no'])?$_GET['mobile_no']:null;}
 $first_name = isset($_POST['first_name'])?$_POST['first_name']:null;
 $last_name = isset($_POST['last_name'])?$_POST['last_name']:null;
 $address = isset($_POST['address'])?$_POST['address']:null;

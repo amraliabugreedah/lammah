@@ -41,7 +41,7 @@ while($row = $result->fetch_assoc()){
     $result2 = $conn->query($sql2);
     $row2 = $result2->fetch_assoc();
         echo "<tr id=''>";
-        echo "              <td align='center' id=''>" . $row['id'] . "</td>
+        echo "              <td align='center' id=''><a href='order.php?mobile_no=$row[mobile]'>$row[id]</a></td>
                             <td align='center' id=''>" . $row["first_name"] . "</td>
                             <td align='center' id=''>" . $row["last_name"] . "</td>
                             <td align='center' id=''>" . $row["mobile"] . "</td>
@@ -64,7 +64,7 @@ while($row = $result->fetch_assoc()){
         echo "</tr>";
 }
     echo "</tbody>";
-    echo " </table>  <hr class=\"style2\">";
+    echo " </table>";
     echo "</div>";
 
 
