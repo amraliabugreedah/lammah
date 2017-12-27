@@ -36,9 +36,9 @@ while($row = $result->fetch_assoc()){
       <tr>
         <th class=\"text-center\" style='width: 2%'></th>
         <th class=\"text-center\" style='width: 8%'>Order ID</th>
-        <th class=\"text-center\" data-sort=\"text\" style='width: 13%'>Item Name <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
-        <th class=\"text-center\" data-sort=\"num\" style='width: 9%'>Item Price <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
-        <th class=\"text-center\" data-sort=\"num\" style='width: 11%'>Item Quantity <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center clickableElem\" data-sort=\"text\" style='width: 13%'>Item Name <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center clickableElem\" data-sort=\"num\" style='width: 9%'>Item Price <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center clickableElem\" data-sort=\"num\" style='width: 11%'>Item Quantity <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
         <th class=\"text-center\" style='width: 20%'>Order Status</th>
         <th class=\"text-center\" style='width: 15%'>Order Creation Time</th>
         <th class=\"text-center\" style='width: 15%'>Expected Delivery Date</th>

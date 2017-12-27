@@ -18,16 +18,16 @@ include '../_inc/main_user_info.php';
     echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
     echo " <thead>
       <tr>
-        <th class=\"text-center\" data-sort=\"num\" >User ID  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
-        <th class=\"text-center\" data-sort=\"text\" >First Name  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
-        <th class=\"text-center\" data-sort=\"text\" >Last Name  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center clickableElem\" data-sort=\"num\" >User ID  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center clickableElem\" data-sort=\"text\" >First Name  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center clickableElem\" data-sort=\"text\" >Last Name  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
         <th class=\"text-center\" >Mobile</th>
         <th class=\"text-center\" >Address</th>
         <th class=\"text-center\" >Status</th>
-        <th class=\"text-center\" data-sort=\"num\" >Total Number Of Orders <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
-        <th class=\"text-center\" data-sort=\"num\" >Total Paid  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
-        <th class=\"text-center\" data-sort=\"date\">Creation Time  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
-        <th class=\"text-center\" data-sort=\"date\" >Last Order Date  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center clickableElem\" data-sort=\"num\" >Total Number Of Orders <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center clickableElem\" data-sort=\"num\" >Total Paid  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center clickableElem\" data-sort=\"date\">Creation Time  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
+        <th class=\"text-center clickableElem\" data-sort=\"date\" >Last Order Date  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
       </tr>
     </thead>";
     echo "<tbody>";
@@ -47,7 +47,7 @@ while($row = $result->fetch_assoc()){
                             <td align='center' id=''>" . $row["mobile"] . "</td>
                             <td align='center' id=''>" . $row["address"] . "</td>";
         if ($row["status"] == 1) {
-            echo "<td align='center' id=''>><img src='../images/ok.ico' id='$row[id]' alt='Ok' height=\"22\" width=\"22\"></td>";
+            echo "<td align='center' id=''><img src='../images/ok.ico' id='$row[id]' alt='Ok' height=\"22\" width=\"22\"></td>";
         } else if ($row["status"] == 0) {
             echo "<td align='center' id=''><img src='../images/alert.ico' id='$row[id]' alt='Alert' height=\"22\" width=\"22\"></td>";
         } else if ($row["status"] == -1) {

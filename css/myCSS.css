@@ -121,3 +121,7 @@ hr.style2{
 
 i { cursor: pointer; }
 
+.clickableElem{
+    cursor: pointer;
+}
+
