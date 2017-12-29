@@ -14,7 +14,7 @@ include '../_lib/db.conf.php';
 include '../_inc/main_user_info.php';
 
 echo "<div class=\"wrapper\">
-		<div class=\"container\">";
+		<div class=\"container\" style='width:70%;'>";
 
     echo "<div class=\"table-responsive row\"  id=''>";
     echo "<div class=\"form-group pull-right\">
