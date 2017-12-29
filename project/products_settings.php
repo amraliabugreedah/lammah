@@ -38,12 +38,12 @@ if(isset($_POST['ANI'])){
     $item_price = $_POST['item_price'];
     $sql1 = "INSERT INTO food_item (category_id, item_name, item_price) VALUES ($food_category_id, '$item_name', $item_price)";
     $conn->query($sql1);
-    header("location:food.php");
+    header("location:products.php");
 }else if(isset($_POST['ANG'])){
     $food_category_name = $_POST['category_name'];
     $sql1 = "INSERT INTO food_category (client_id, category_name) VALUES ($curr_client_id, '$food_category_name')";
     $conn->query($sql1);
-    header("location:food.php");
+    header("location:products.php");
 }else if(isset($_POST['Edit'])){
     if(isset($_POST['category_id'])){
         $category_id = $_POST['category_id'];
@@ -60,7 +60,7 @@ if(isset($_POST['ANI'])){
     $sql1 = "UPDATE food_item SET category_id = $category_id, item_name = '$item_name', item_price = $item_price WHERE  id = $item_id";
     $conn->query($sql1);
     }
-    header("location:food.php");
+    header("location:products.php");
 }
 
 echo "<div class=\"container\" align='right'>";
@@ -155,7 +155,7 @@ if($food_setting == 'Add New Item'){
         $sql = "DELETE FROM food_item WHERE id = $item_id";
         $conn->query($sql);
     }
-    header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . "/project/food.php");
+    header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . "/project/products.php");
 }
 
 echo "<div class='row' align='center'><div class='errorMsg' style='display: none'></div></div>";

@@ -117,7 +117,7 @@ if(isset($status_num)){
                        
                        </div>
                        <div class=\"row top-buffer\"> 
-                       <form method=\"post\" action=\"food.php\">
+                       <form method=\"post\" action=\"products.php\">
                        <input hidden type='text' id='user_id' name='user_id' value='$row[id]'>
                        <div class=\"col-sm-2\"> <input id = 'NewOrder' name='NewOrder' type='submit' class='btn btn-default' value='New Order'></div>
                        </form>

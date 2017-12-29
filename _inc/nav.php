@@ -13,7 +13,7 @@ echo "<ul>
   <li><a id=\"newUser\" href=\"../project/new_user.php\">New User</a></li>
   <li><a id=\"order\" href=\"../project/order.php\">Order</a></li>
   <li><a id=\"users\" href=\"../project/users.php\">Users</a></li>
-  <li><a id=\"food\" href=\"../project/food.php\">Food</a></li>
+  <li><a id=\"food\" href=\"../project/products.php\">Products</a></li>
   <li><a id=\"logout\" href=\"../_auth/logout.php\">logout</a></li>
 </ul>";
 
