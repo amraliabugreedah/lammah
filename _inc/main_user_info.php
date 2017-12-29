@@ -13,9 +13,11 @@ if(!isset($_SESSION['logged_client'])){
     exit;
 }
 $client_name = $_SESSION['logged_client'];
-$sql = "SELECT cid FROM clients where clientname = '".$client_name." ' LIMIT 1";
+$sql = "SELECT cid, client_level FROM clients where clientname = '".$client_name." ' LIMIT 1";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 $curr_client_id = $row['cid'];
+$curr_client_level = $row['client_level'];
+
 ?>
