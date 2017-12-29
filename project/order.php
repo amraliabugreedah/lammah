@@ -169,9 +169,9 @@ mysqli_close($conn);
                 $userOrdersDiv.append(data);
                 $('.pagination').empty();
                 $num_pages = orders_num/4;
-                $('.pagination').append(' <li id ="1"><a class="pageNum">1</a></li>');
+                $('.pagination').append(' <li id ="1" class="page-item acitve"><a class="pageNum">1</a></li>');
                 for($i = 1; $i<$num_pages; $i++){
-                    $('.pagination').append(' <li id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
+                    $('.pagination').append(' <li id ='+($i+1)+' class="page-item"><a class=\'pageNum page-item\'>'+($i+1)+'</a></li>');
                 }
                 disableUpperFuntion = true;
             });

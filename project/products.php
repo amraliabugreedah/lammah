@@ -45,12 +45,17 @@ echo"<div class=\"col-sm-3\">
         <form action='order.php' method='post'>
          <input hidden type='text' id='ExpDeliveryDate' name='ExpDeliveryDate'>
          <input hidden type='text' id='mobile_no' name='mobile_no' value='$user_mobile'>
-         <input hidden type='text' id='order_id' name='order_id' value='$order_id'>
-        <input type='submit' name='getUser' style='pointer-events: none;' disabled  id ='backToUserProfile'  value='Back To User Profile' class='btn btn-default'>
-         </form>
+         <input hidden type='text' id='order_id' name='order_id' value='$order_id'>";
+if($curr_client_level == 3) {
+    echo "<input type = 'submit' name = 'getUser' style = 'pointer-events: none;' disabled  id = 'backToUserProfile'  value = 'Back To User Profile' class='btn btn-default' >";
+    }else{
+    echo "<input type = 'submit' name = 'getUser' id = 'backToUserProfile'  value = 'Back To User Profile' class='btn btn-default' >";
+}
+         echo "</form>
          </div>";
-    echo"<div class='col-sm-3'> <label style='margin-top:8px; '>Enter The Expected Delivery Date:</label></div>";
-    echo"<div class='col-sm-6'>
+if($curr_client_level == 3) {
+    echo "<div class='col-sm-3'> <label style='margin-top:8px; '>Enter The Expected Delivery Date:</label></div>";
+    echo "<div class='col-sm-6'>
             <div class=\"form-group\">
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='text' id ='expectedDeliveryDate' class=\"form-control\" />
@@ -61,7 +66,8 @@ echo"<div class=\"col-sm-3\">
             </div>
         </div>";
 
-echo "</div>";
+    echo "</div>";
+}
 echo "<div class=\"row table-responsive orderItemsAdded top-buffer\" style=\"display: none;\" id='orderItemsAdded'>";
 
 
@@ -204,6 +210,9 @@ mysqli_close($conn);
     $total= 0;
     $totalQTY = 0;
     $('.add-remove-item-order').click(function () {
+        <?php echo "if($curr_client_level == 2){";?>
+        $permission_to_show_deliver_date = true;
+        <?php echo"}";?>
         $item_id = $(this).attr('id');
         $user_id = $(this).parent().attr('data-value');
         $order_id = $(this).parent().attr('id');
@@ -290,7 +299,7 @@ mysqli_close($conn);
 
         });
     });
-
+<?php echo "if($curr_client_level == 3){";?>
     $('#expectedDeliveryDate').on('mouseenter mouseleave click focus blur',function(){
         $ExpDeliveryDate = $('#ExpDeliveryDate');
         $date = $('#datetimepicker1').data("DateTimePicker").date().format("YYYY-MM-DD HH:mm:ss");
@@ -302,6 +311,6 @@ mysqli_close($conn);
         }
         $permission_to_show_deliver_date = true;
 
-    });
+    });<?php echo "}";?>
 </script>
 

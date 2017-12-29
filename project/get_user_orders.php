@@ -16,17 +16,27 @@ $startRow = ($page_num-1)*4;
 
 if($orders_num < 5){ //////// order by o.expected_delivery_time if it's needed  in both conditions
     $sql = "SELECT DISTINCT o.id FROM orders AS o INNER JOIN order_stuff AS os 
-                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $id AND client_id = $curr_client_id ORDER BY  o.id DESC ";
+                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $id AND client_id = $curr_client_id ORDER BY";
+    if($curr_client_level == 2){
+        $sql .= "  o.id DESC";
+    }else if($curr_client_level == 3){
+        $sql .= " o.expected_delivery_time, o.id ASC";
+    }
 }else{
     $sql = "SELECT DISTINCT o.id FROM orders AS o INNER JOIN order_stuff AS os 
-                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $id AND client_id = $curr_client_id ORDER BY  o.id DESC LIMIT $startRow, 4";
+                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $id AND client_id = $curr_client_id ORDER BY";
+    if($curr_client_level == 2){
+        $sql .= " o.id DESC  LIMIT $startRow, 4";
+    }else if($curr_client_level == 3){
+        $sql .= " o.expected_delivery_time, o.id ASC LIMIT $startRow, 4";
+    }
 }
-
+echo $sql;
 $result = $conn->query($sql);
 while($row = $result->fetch_assoc()){
 
         $sql2 = "SELECT o.id, o.creation_time, o.expected_delivery_time, o.status, os.quantity, fi.item_name, fi.item_price FROM orders AS o INNER JOIN order_stuff AS os 
-                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE o.id = $row[id] AND os.user_id = $id AND client_id = $curr_client_id ORDER BY o.expected_delivery_time, o.id, fi.item_name ASC";
+                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE o.id = $row[id] AND os.user_id = $id AND client_id = $curr_client_id ORDER BY  fi.item_name ASC";
 
     $result2 = $conn->query($sql2);
 
@@ -56,7 +66,9 @@ while($row = $result->fetch_assoc()){
     $order_id = $row2['id'];
     $order_status = $row2["status"];
     $order_creation_time = $row2["creation_time"];
-//    $order_expected_time = $row2["expected_delivery_time"];
+    if($curr_client_level == 3){
+        $order_expected_time = $row2["expected_delivery_time"];
+    }
     }
     echo "<tr class='staticRow'>";
     echo " <td align='center' id=''>Total</td>
@@ -91,9 +103,10 @@ while($row = $result->fetch_assoc()){
 
     echo "<tr id=''>";
     echo "     <td align='center' id=''>Order Creation Time</td>   <td align='center' id=''>" .$order_creation_time . "</td></tr>";
-//    echo "<tr id=''>";
-//    echo "     <td align='center' id=''>Expected Delivery Date</td> <td align='center' id=''>" .$order_expected_time . "</td></tr>";
-
+    if($curr_client_level == 3){
+    echo "<tr id=''>";
+    echo "     <td align='center' id=''>Expected Delivery Date</td> <td align='center' id=''>" .$order_expected_time . "</td></tr>";
+    }
     echo "</tbody>";
     echo " </table> </div> ";
     echo "</div> <hr class=\"style2\"> ";
