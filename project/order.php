@@ -124,8 +124,8 @@ if(isset($status_num)){
                        </div> 
                        <hr class=\"style1\">";
 
-                        echo "<script>var id = $row[id];</script>";
-                        echo "<script>var disableUpperFuntion = false;</script>";
+                        echo "<script>let id = $row[id];</script>";
+                        echo "<script>let disableUpperFuntion = false;</script>";
 
                         echo "<div class='userOrders'></div>";
 
