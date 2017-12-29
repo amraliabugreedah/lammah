@@ -16,7 +16,7 @@ include '../_inc/main_user_info.php';
 echo "<div class=\"wrapper\">
 		<div class=\"container\">";
 
-    echo "<div class=\"table-resiponsve col-lg-10\" align=\"center\" style=\"display: block;\" id=''>";
+    echo "<div class=\"table-responsive row\"  id=''>";
     echo "<div class=\"form-group pull-right\">
     <input type=\"text\" class=\"search form-control\" placeholder=\"What you looking for?\">
     </div>

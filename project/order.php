@@ -82,7 +82,7 @@ if(isset($status_num)){
             $result2 = $conn->query($sql2);
             $row2 = $result2->fetch_assoc();
 
-                echo "<div class=\"row bg-1 top-buffer2\"> 
+                echo "<div class=\"row\"> <div class=\"row bg-1 top-buffer2\"> 
                      <div class=\"col-sm-2\"> <label>ID:</label> </div>  <div class=\"col-sm-2\"><label>" . $row["id"]. " </label></div>
                      </div>
                      <div class=\"row bg-1 top-buffer2\"> 

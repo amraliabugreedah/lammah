@@ -20,7 +20,7 @@ echo "<div class=\"wrapper\">
 
 
 if(!isset($_POST['addNewUser']) && $_SERVER['REQUEST_METHOD'] !== 'POST'){
-echo "<div class=\"container\">";
+echo "<div class=\"row\">";
 echo " <form method=\"post\" action=\"order.php\">
   <div class=\"form-group\">
    <label for=\"first_name\">First Name: </label> 

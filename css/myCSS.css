@@ -1,9 +1,21 @@
+body, html {
+    height: 100%;
+}
+
 .wrapper {
-    background-color: #064a59;
+    background-color: ghostwhite;
+    max-width: fit-content; /* 20px smaller, to fit the paddings on the sides */
+
+    margin: 0 10px 10px 10px;
+    min-height: 100%;
+
 }
 .container {
-    background-color: #0a6aa1;
+    max-width: fit-content; /* 20px smaller, to fit the paddings on the sides */
+    padding-top: 10px;
+    /*margin: 0 10px 10px 10px;*/
 }
+
 
 ul {
     list-style-type: none;

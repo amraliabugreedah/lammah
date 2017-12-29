@@ -16,10 +16,10 @@
         <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 </head>
-<body style="background: #f2f2f2">
+<body style="background: white" >
 <!--<div id="google_translate_element"></div><script type="text/javascript">-->
 <!--    function googleTranslateElementInit() {-->
 <!--        new google.translate.TranslateElement({pageLanguage: 'en', multilanguagePage: true}, 'google_translate_element');-->
 <!--    }-->
 <!--</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>-->
-<!--        -->
+<!--   style="background: #f2f2f2"     -->
