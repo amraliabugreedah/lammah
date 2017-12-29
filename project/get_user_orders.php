@@ -56,7 +56,7 @@ while($row = $result->fetch_assoc()){
     $order_id = $row2['id'];
     $order_status = $row2["status"];
     $order_creation_time = $row2["creation_time"];
-    $order_expected_time = $row2["expected_delivery_time"];
+//    $order_expected_time = $row2["expected_delivery_time"];
     }
     echo "<tr class='staticRow'>";
     echo " <td align='center' id=''>Total</td>
@@ -81,9 +81,9 @@ while($row = $result->fetch_assoc()){
 
     echo "     <td align='center' id=''>Order Status</td>";
     if ($order_status == 1) {
-        echo "<td align='center' id=''>Delivered</td>";
+        echo "<td align='center' id=''>Done</td>";
     } else if ($order_status == 0) {
-        echo "<td align='center' id=''>Order Not Delivered Yet</td>";
+        echo "<td align='center' id=''>In Process</td>";
     } else if ($order_status == -1) {
         echo "<td align='center' id=''>Cancelled</td>";
     }
@@ -91,8 +91,8 @@ while($row = $result->fetch_assoc()){
 
     echo "<tr id=''>";
     echo "     <td align='center' id=''>Order Creation Time</td>   <td align='center' id=''>" .$order_creation_time . "</td></tr>";
-    echo "<tr id=''>";
-    echo "     <td align='center' id=''>Expected Delivery Date</td> <td align='center' id=''>" .$order_expected_time . "</td></tr>";
+//    echo "<tr id=''>";
+//    echo "     <td align='center' id=''>Expected Delivery Date</td> <td align='center' id=''>" .$order_expected_time . "</td></tr>";
 
     echo "</tbody>";
     echo " </table> </div> ";
