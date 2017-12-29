@@ -7,7 +7,8 @@
  */
 $pageTitle = 'Login Page';
 include 'header.php';
-
+echo "<div class=\"wrapper\" style='height: fit-content'>
+		<div class=\"container\">";
 ?>
     <div class="content">
         <div class="loginwrapper">
@@ -67,5 +68,6 @@ include 'header.php';
     </script>
 
 <?php
-include 'footer.php';
+include '../_inc/footer.php';
+echo "</div></div>";
 ?>

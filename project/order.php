@@ -14,7 +14,8 @@ include '../_lib/db.conf.php';
 include '../_inc/main_user_info.php';
 
 
-echo "<div class=\"container\">";
+echo "<div class=\"wrapper\"> 
+        <div class=\"container\">";
 $mobile = isset($_POST['mobile_no'])?$_POST['mobile_no']:null;
 if(!isset($mobile)){$mobile = isset($_GET['mobile_no'])?$_GET['mobile_no']:null;}
 $first_name = isset($_POST['first_name'])?$_POST['first_name']:null;
@@ -145,9 +146,10 @@ if(isset($status_num)){
 
 
 
-echo "</div>";
-mysqli_close($conn);
 include '../_inc/footer.php';
+echo "</div></div>";
+
+mysqli_close($conn);
 ?>
 
 <script>

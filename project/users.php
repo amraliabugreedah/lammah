@@ -13,6 +13,8 @@ include '../_inc/nav.php';
 include '../_lib/db.conf.php';
 include '../_inc/main_user_info.php';
 
+echo "<div class=\"wrapper\">
+		<div class=\"container\">";
 
     echo "<div class=\"table-resiponsve col-lg-10\" align=\"center\" style=\"display: block;\" id=''>";
     echo "<div class=\"form-group pull-right\">
@@ -77,8 +79,10 @@ while($row = $result->fetch_assoc()){
 
 
 
-mysqli_close($conn);
+
 include '../_inc/footer.php';
+echo "</div></div>";
+mysqli_close($conn);
 ?>
 
 <script>

@@ -15,6 +15,8 @@ include '../_inc/main_user_info.php';
 
 
 
+echo "<div class=\"wrapper\"> 
+        <div class=\"container\">";
 
 
 if(!isset($_POST['addNewUser']) && $_SERVER['REQUEST_METHOD'] !== 'POST'){
@@ -41,7 +43,10 @@ echo " <form method=\"post\" action=\"order.php\">
 
 echo "</div>";
 }
+
 include '../_inc/footer.php';
+echo "</div></div>";
+mysqli_close($conn);
 ?>
 
 <script>

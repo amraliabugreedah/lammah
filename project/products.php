@@ -13,7 +13,8 @@ include '../_lib/db.conf.php';
 include '../_inc/main_user_info.php';
 
 
-echo "<div class=\"container\">";
+echo "<div class=\"wrapper\"> 
+        <div class=\"container\">";
 
 if(isset($_POST['NewOrder'])){
     $user_id = isset($_POST['user_id'])?$_POST['user_id']:null;
@@ -170,9 +171,10 @@ echo "</div>";
                     echo " </table>";
                     echo "</div>";
                 }
-echo "</div>";
-mysqli_close($conn);
+
 include '../_inc/footer.php';
+echo "</div></div>";
+mysqli_close($conn);
 ?>
 
 <script>

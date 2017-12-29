@@ -63,7 +63,7 @@ if(isset($_POST['ANI'])){
     header("location:products.php");
 }
 
-echo "<div class=\"container\" align='right'>";
+echo "<div class=\"wrapper\"> <div class=\"container\" align='right'>";
 
 
 if($food_setting == 'Add New Item'){
@@ -161,10 +161,10 @@ if($food_setting == 'Add New Item'){
 echo "<div class='row' align='center'><div class='errorMsg' style='display: none'></div></div>";
 
 
-echo "</div>";
 
-mysqli_close($conn);
 include '../_inc/footer.php';
+echo "</div></div>";
+mysqli_close($conn);
 ?>
 
 <script>
