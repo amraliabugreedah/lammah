@@ -41,6 +41,7 @@ if(isset($_POST['NewOrder'])){
 
 
 echo "<div class=\"row top-buffer\">";
+echo "<div class='row'>";
 echo"<div class=\"col-sm-3\">
         <form action='order.php' method='post'>
          <input hidden type='text' id='ExpDeliveryDate' name='ExpDeliveryDate'>
@@ -52,7 +53,8 @@ if($curr_client_level == 3) {
     echo "<input type = 'submit' name = 'getUser' id = 'backToUserProfile'  value = 'Back To User Profile' class='btn btn-default' >";
 }
          echo "</form>
-         </div>";
+         </div></div>";
+
 if($curr_client_level == 3) {
     echo "<div class='col-sm-3'> <label style='margin-top:8px; '>Enter The Expected Delivery Date:</label></div>";
     echo "<div class='col-sm-6'>

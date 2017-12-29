@@ -31,7 +31,6 @@ if($orders_num < 5){ //////// order by o.expected_delivery_time if it's needed  
         $sql .= " o.expected_delivery_time, o.id ASC LIMIT $startRow, 4";
     }
 }
-echo $sql;
 $result = $conn->query($sql);
 while($row = $result->fetch_assoc()){
 
