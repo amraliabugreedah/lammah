@@ -15,7 +15,11 @@ include '../_inc/main_user_info.php';
 
 
     echo "<div class=\"table-resiponsve col-lg-10\" align=\"center\" style=\"display: block;\" id=''>";
-    echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
+    echo "<div class=\"form-group pull-right\">
+    <input type=\"text\" class=\"search form-control\" placeholder=\"What you looking for?\">
+    </div>
+    <span class=\"counter pull-right\"></span>";
+    echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter results\">";
     echo " <thead>
       <tr>
         <th class=\"text-center clickableElem\" data-sort=\"num\" >User ID  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
@@ -63,6 +67,9 @@ while($row = $result->fetch_assoc()){
         echo "  <td align='center' id=''>" . $row["last_order_date"] . "</td>";
         echo "</tr>";
 }
+    echo"<tr class=\"danger no-result\">
+          <td colspan=\"10\" align='center'><i class=\"fa fa-warning\"></i> No result</td>
+          </tr>";
     echo "</tbody>";
     echo " </table>";
     echo "</div>";
@@ -76,5 +83,31 @@ include '../_inc/footer.php';
 
 <script>
     $('#users').addClass("active");
+
+    $(document).ready(function() {
+        $(".search").keyup(function () {
+            var searchTerm = $(".search").val();
+            var searchSplit = searchTerm.replace(/ /g, "'):contains('");
+
+            $.extend($.expr[':'], {'contains': function(elem, i, match, array){
+                    return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+                }
+            });
+
+            $(".results tbody tr").not(":contains('" + searchSplit + "')").each(function(e){
+                $(this).attr('visible','false');
+            });
+
+            $(".results tbody tr:contains('" + searchSplit + "')").each(function(e){
+                $(this).attr('visible','true');
+            });
+
+            var jobCount = $('.results tbody tr[visible="true"]+:not(\"no-result\")').length;
+            $('.counter').text(jobCount + ' item');
+
+            if(jobCount == '0') {$('.no-result').show();}
+            else {$('.no-result').hide();}
+        });
+    });
 </script>
 
