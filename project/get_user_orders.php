@@ -16,10 +16,10 @@ $startRow = ($page_num-1)*4;
 
 if($orders_num < 5){ //////// order by o.expected_delivery_time if it's needed  in both conditions
     $sql = "SELECT DISTINCT o.id FROM orders AS o INNER JOIN order_stuff AS os 
-                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $id AND client_id = $curr_client_id ORDER BY  o.id ASC";
+                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $id AND client_id = $curr_client_id ORDER BY  o.id DESC ";
 }else{
     $sql = "SELECT DISTINCT o.id FROM orders AS o INNER JOIN order_stuff AS os 
-                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $id AND client_id = $curr_client_id ORDER BY  o.id ASC LIMIT $startRow, 4";
+                    ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE os.user_id = $id AND client_id = $curr_client_id ORDER BY  o.id DESC LIMIT $startRow, 4";
 }
 
 $result = $conn->query($sql);
