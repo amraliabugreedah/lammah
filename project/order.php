@@ -36,18 +36,6 @@ if(isset($status_num)){
     exit;
 }
 
-    if(!isset($_POST['getUser']) && !isset($mobile)){
-
-        echo " <form method=\"post\" action=\"order.php\">
-  <div class=\"form-group\">
-   <label for=\"mobile_no\">Search </label> 
-   <input type=\"number\" required class=\"form-control\" id=\"mobile_no\" placeholder=\"Enter Mobile Number\" name=\"mobile_no\">
-   </div>
-  <input type=\"submit\"  class=\"btn btn-default\" name=\"getUser\" id=\"getUser\" value=\"Submit\">
-</form> ";
-
-
-    }else{
 
 
         $sql = "SELECT * FROM users WHERE mobile = '$mobile' AND client_id = $curr_client_id";
@@ -104,7 +92,8 @@ if(isset($status_num)){
                        <div class=\"col-sm-2\"> <label>Total Paid:</label> </div>  <div class=\"col-sm-2\"><label> " . $row2["total_paid"] . " EGP</label> </div>
                        </div>
                        <div class=\"row bg-1 top-buffer2\"> 
-                       <div class=\"col-sm-2\"> <label>Status:</label> </div>  <div class=\"col-sm-2\"><label>
+                       <div class=\"col-sm-2\"> <label>Status:</label> 
+                       </div>  <div class=\"col-sm-2\"><label>
                         
                             <div class=\"dropdown\">
                               <a class=\"dropbtn\"> <img src=$statusIcon alt=$altStatus height=\"22\" width=\"22\"></a>
@@ -142,7 +131,7 @@ if(isset($status_num)){
             echo "<h1>$mobile is not registered.<h1>";
         }
 
-    }
+
 
 
 
@@ -154,7 +143,7 @@ mysqli_close($conn);
 
 <script>
     $('#order').addClass("active");
-
+    $('#order').css('display','block');
     if(disableUpperFuntion === false){
     $(function(){
         $.post("./get_user_orders.php",
@@ -169,9 +158,9 @@ mysqli_close($conn);
                 $userOrdersDiv.append(data);
                 $('.pagination').empty();
                 $num_pages = orders_num/4;
-                $('.pagination').append(' <li class="active" id ="1"><a class="pageNum">1</a></li>');
+                $('.pagination').append(' <li class="active clickableElem" id ="1"><a class="pageNum">1</a></li>');
                 for($i = 1; $i<$num_pages; $i++){
-                    $('.pagination').append(' <li id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
+                    $('.pagination').append(' <li class="clickableElem" id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
                 }
                 disableUpperFuntion = true;
             });
@@ -195,9 +184,9 @@ mysqli_close($conn);
                 $pagination.empty();
                 for($i = 0; $i<$num_pages; $i++){
                     if(($i+1)==$page_num){
-                        $pagination.append(' <li class="active" id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
+                        $pagination.append(' <li class="active clickableElem" id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
                     }else{
-                        $pagination.append(' <li id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
+                        $pagination.append(' <li class="clickableElem" id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
                     }
                 }
             });
@@ -226,8 +215,11 @@ mysqli_close($conn);
          });
  });
 
+$('a.orderStatus').hover(function() {
+    console.log("sss");
+    $('.dropbtn-orderstatus').hover();
 
-
+});
 
 
 </script>
