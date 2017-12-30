@@ -38,12 +38,10 @@ echo "<div class=\"wrapper\" style='height: fit-content'>
 
     <script>
         $('.submitLoginInfo').on('click', function(){
-            $username = $('#username').val();
-            $password = $('#password').val();
             $.post("../_auth/login.php",
                 {
-                    username: $username,
-                    password: $password,
+                    username: $('#username').val(),
+                    password: $('#password').val(),
                     submitLoginInfo: 'submitIt'
                 },
                 function(data, status){
