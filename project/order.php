@@ -169,9 +169,9 @@ mysqli_close($conn);
                 $userOrdersDiv.append(data);
                 $('.pagination').empty();
                 $num_pages = orders_num/4;
-                $('.pagination').append(' <li id ="1" class="page-item acitve"><a class="pageNum">1</a></li>');
+                $('.pagination').append(' <li class="active" id ="1"><a class="pageNum">1</a></li>');
                 for($i = 1; $i<$num_pages; $i++){
-                    $('.pagination').append(' <li id ='+($i+1)+' class="page-item"><a class=\'pageNum page-item\'>'+($i+1)+'</a></li>');
+                    $('.pagination').append(' <li id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
                 }
                 disableUpperFuntion = true;
             });
@@ -180,7 +180,6 @@ mysqli_close($conn);
     $(document).on('click', '.pageNum', function(e) {
         disableUpperFuntion = true;
         $page_num = $(this).parent().attr('id');
-
         $.post("./get_user_orders.php",
             {
                 user_id: id,
@@ -194,11 +193,13 @@ mysqli_close($conn);
                 $num_pages = orders_num/4;
                 $pagination = $('.pagination');
                 $pagination.empty();
-                $pagination.append(' <li id ="1"><a class="pageNum">1</a></li>');
-                for($i = 1; $i<$num_pages; $i++){
-                    $pagination.append(' <li id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
+                for($i = 0; $i<$num_pages; $i++){
+                    if(($i+1)==$page_num){
+                        $pagination.append(' <li class="active" id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
+                    }else{
+                        $pagination.append(' <li id ='+($i+1)+'><a class=\'pageNum\'>'+($i+1)+'</a></li>');
+                    }
                 }
-
             });
     });
 
