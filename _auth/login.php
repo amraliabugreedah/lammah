@@ -32,7 +32,7 @@ if(isset($_POST['submitLoginInfo'])) {
         }
     }else {
 
-        echo "<h2>Your Login Name or Password is invalid!</h2>";
+        echo "<h2>Your Username or Password is invalid!</h2>";
     }
 }
 ?>

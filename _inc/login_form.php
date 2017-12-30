@@ -27,10 +27,8 @@ echo "<div class=\"wrapper\" style='height: fit-content'>
                 </form>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-4 ">
-            </div>
-            <div class="col-sm-8 ">
+        <div class="row" align="center">
+            <div class="col-sm-12 ">
                 <div class="errorMessage" style="display: none;"></div>
             </div>
         </div>
