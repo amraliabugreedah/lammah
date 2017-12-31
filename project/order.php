@@ -23,17 +23,22 @@ $last_name = isset($_POST['last_name'])?$_POST['last_name']:null;
 $address = isset($_POST['address'])?$_POST['address']:null;
 $status_num = isset($_POST['status_num'])?$_POST['status_num']:null;
 $user_id = isset($_POST['user_id'])?$_POST['user_id']:null;
+$order_id = isset($_POST['order_id'])?$_POST['order_id']:null;
 
 if(isset($_POST['addNewUser'])){
     $sql = "INSERT INTO users (client_id, first_name, last_name, mobile, address) values ($curr_client_id, '$first_name', '$last_name', '$mobile', '$address')";
     $conn->query($sql);
 }
 
-if(isset($status_num)){
-    $sql = "UPDATE users SET status = $status_num WHERE id = $user_id";
+if(isset($status_num)&&isset($user_id)){
+    $sql = "UPDATE users SET status = $status_num WHERE id = $user_id AND client_id = $curr_client_id";
     $conn->query($sql);
-    echo  $sql;
-    exit;
+
+}
+if(isset($status_num)&&isset($order_id)){
+    $sql = "UPDATE orders SET status = $status_num WHERE id = $order_id AND client_id = $curr_client_id";
+    $conn->query($sql);
+
 }
 
 
@@ -214,6 +219,29 @@ mysqli_close($conn);
          }
          });
  });
+
+    $(document).on('click', '.status_order', function(){
+        $status_order = $(this).attr('id');
+        if($status_order === 'In Process'){
+            $status_num = 0;
+        }else if($status_order === 'Done'){
+            $status_num = 1;
+        }else if($status_order === 'Cancelled'){
+            $status_num = -1;
+        }
+        $order_id = $(this).parent().attr('id');
+
+        $.post("./order.php",
+            {
+                status_num: $status_num,
+                order_id: $order_id
+            },
+            function(data, status){
+                if(status === "success"){
+                    $('a#'+$order_id).text($status_order);
+                }
+            });
+    });
 
 
 

@@ -136,6 +136,7 @@ hr.style2{
 .dropdown:hover .dropdown-content {
     margin-top: 10px;
     display: block;
+    cursor: pointer;
 }
 
 

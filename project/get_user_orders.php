@@ -40,7 +40,7 @@ while($row = $result->fetch_assoc()){
 
     $result2 = $conn->query($sql2);
 
-    echo "<div class=\"row table-responsive\" align=\"center\" style=\"display: block;\" id=''>";
+    echo "<div class=\"row table-responsive\" align=\"center\" style=\"display: block; padding-bottom: 70px\" id=''>";
     echo "<div class='col-sm-6'>";
     echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
     echo " <thead>
@@ -83,7 +83,7 @@ while($row = $result->fetch_assoc()){
     echo " <thead>
       <tr>
         <th class=\"text-center\" >Title</th>
-        <th class=\"text-center\" data-sort=\"text\" >Information </th>
+        <th class=\"text-center\" >Information </th>
       </tr>
     </thead>";
     echo "<tbody>";
@@ -92,24 +92,37 @@ while($row = $result->fetch_assoc()){
     echo "<tr id=''>";
 
     echo "     <td align='center' id=''>Order Status</td>";
+
+    echo "<td align='center'> <div class=\"dropdown\">";
     if ($order_status == 1) {
-        echo "<td align='center' id=''>Done</td>";
+        echo "<a class='orderStatus clickableElem' id='$order_id' >Done</a>";
     } else if ($order_status == 0) {
-        echo "<td align='center' id=''>In Process</td>";
+        echo "<a class='orderStatus clickableElem' id='$order_id' >In Process</a>";
     } else if ($order_status == -1) {
-        echo "<td align='center' id=''>Cancelled</td>";
+        echo "<a class='orderStatus clickableElem' id='$order_id'>Cancelled</a>";
     }
+   echo "<div class=\"dropdown-content\" id='$order_id' style='margin-top: -1px;'>
+                                <a class='status_order' id='In Process'>In Process</a>
+                                <a class='status_order' id='Done'>Done</a>
+                                <a class='status_order' id='Cancelled'>Cancelled</a>
+                              </div>
+                            </div>";
+echo "</td>";
     echo"</tr>";
 
     echo "<tr id=''>";
-    echo "     <td align='center' id=''>Order Creation Time</td>   <td align='center' id=''>" .$order_creation_time . "</td></tr>";
+    echo "     <td align='center' id=''>Order Creation Time</td> <td align='center' id=''>" .$order_creation_time . "</td></tr>";
     if($curr_client_level == 3){
     echo "<tr id=''>";
     echo "     <td align='center' id=''>Expected Delivery Date</td> <td align='center' id=''>" .$order_expected_time . "</td></tr>";
     }
     echo "</tbody>";
     echo " </table> </div> ";
-    echo "</div> <hr class=\"style2\"> ";
+    echo "</div>  ";
+
+
+    echo "<hr class=\"style2\">";
+                             
 }
 
 ?>
