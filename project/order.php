@@ -215,11 +215,7 @@ mysqli_close($conn);
          });
  });
 
-$('a.orderStatus').hover(function() {
-    console.log("sss");
-    $('.dropbtn-orderstatus').hover();
 
-});
 
 
 </script>
