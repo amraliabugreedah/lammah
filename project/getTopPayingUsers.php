@@ -25,9 +25,6 @@ echo " <thead>
     </thead>";
 echo "<tbody>";
 while($row = $result->fetch_assoc()){
-
-
-
     echo"<tr>
           <td align='center'>".$row['user_id']."</td>
           <td align='center'>".$row['first_name']."</td>
