@@ -3,12 +3,12 @@ body, html {
 }
 
 .wrapper {
-    /*background-color: ghostwhite;*/
-    /*max-width: fit-content; !* 20px smaller, to fit the paddings on the sides *!*/
+    background-color: ghostwhite;
+    max-width: fit-content; /* 20px smaller, to fit the paddings on the sides */
 
-    /*margin: 0 10px 10px 10px;*/
-    /*min-height: 100%;*/
-
+    margin: 0 10% 10% 10%;
+    min-height: 100%;
+    background: rgba(98,58,101,0.2)
 }
 .container {
     max-width: fit-content;
