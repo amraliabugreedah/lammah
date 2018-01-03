@@ -161,8 +161,8 @@ echo "</div>";
                                         echo"<td align=\"center\"> 
                                                 <form method='post' action='../project_operations/products_settings.php'>
                                                    <input type='text' name='item_id' id='item_id' hidden value='$row1[id]'>
-                                                   <input type='submit' name='start_operation' id='start_operation' class=\"btn btn -default\" value='Edit'>
-                                                   <input type='submit' name='start_operation' id='start_operation' class=\"btn btn -default\" value='Delete'>
+                                                   <input type='submit' name='start_operation' id='start_operation' class=\"btn btn-default\" value='Edit'>
+                                                   <input type='submit' name='start_operation' id='start_operation' class=\"btn btn-default\" value='Delete'>
                                                  </form>
                                                  </td>";
                                    }else{
