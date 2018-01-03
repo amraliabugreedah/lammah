@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 </head>
-<body style="background: #eaeaea" >
+<body style="background: rgba(98,58,101,0.48)" >
 <!--<div id="google_translate_element"></div><script type="text/javascript">-->
 <!--    function googleTranslateElementInit() {-->
 <!--        new google.translate.TranslateElement({pageLanguage: 'en', multilanguagePage: true}, 'google_translate_element');-->
