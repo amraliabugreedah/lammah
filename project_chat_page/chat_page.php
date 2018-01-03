@@ -11,8 +11,7 @@ $pageTitle = 'Chat With US';
 
 include '../_inc/header.php';
 include '../_inc/nav.php';
-include '../_lib/db.conf.php';
-include '../_inc/main_user_info.php';
+
 
 
 echo "<div class=\"wrapper\"> 
@@ -24,16 +23,13 @@ echo" <div class=\"row responsive\">
                 <div class=\"panel-heading\">
                     <span class=\"glyphicon glyphicon-comment\"></span> Chat
                     <div class=\"btn-group pull-right\">
-                        <button type=\"button\" class=\"btn btn-default btn-xs dropdown-toggle\" data-toggle=\"dropdown\">
-                            <span class=\"glyphicon glyphicon-chevron-down\"></span>
-                        </button>
-                        <ul class=\"dropdown-menu slidedown\">
-                            <li><a href=\"http://www.jquery2dotnet.com\"><span class=\"glyphicon glyphicon-refresh\">
-                            </span>Refresh</a></li>
-                        </ul>
+                        
+                            <a href=\"http://www.jquery2dotnet.com\"><span class=\"glyphicon glyphicon-refresh\">
+                            </span>Refresh</a>
+                           
                     </div>
                 </div>
-                <div class=\"panel-body\" >
+                <div class=\"panel-body chatBody\" >
                     <ul class=\"chat\">
                         <li class=\"left clearfix\"><span class=\"chat-img pull-left\">
                             <img src=\"http://placehold.it/50/55C1E7/fff&text=U\" alt=\"User Avatar\" class=\"img-circle\" />
@@ -95,10 +91,9 @@ echo" <div class=\"row responsive\">
                 </div>
                 <div class=\"panel-footer\">
                     <div class=\"input-group\">
-                        <input id=\"btn-input\" type=\"text\" class=\"form-control input-sm\" placeholder=\"Type your message here...\" />
+                        <input id=\"btn-chat-input\" type=\"text\" class=\"form-control input-sm\" placeholder=\"Type your message here...\" />
                         <span class=\"input-group-btn\">
-                            <button class=\"btn btn-warning btn-sm\" id=\"btn-chat\">
-                                Send</button>
+                            <input type='button' value='Send' class=\"btn btn-warning btn-sm btn-send-chat\" id=\"btn-send-chat\">
                         </span>
                     </div>
                 </div>
@@ -109,7 +104,29 @@ echo" <div class=\"row responsive\">
 
 echo "</div></div>";
 include '../_inc/footer.php';
-mysqli_close($conn);
 ?>
 
-<script> $('#chatPage').addClass("active");</script>
+<script>
+    $('#chatPage').addClass("active");
+    $(document).ready(function(){
+        $.post("./getCurrentClientChat.php",
+            {
+
+            },
+            function(data, status){
+
+            });
+    });
+
+    $('#btn-send-chat').click(function(){
+        $message = $('#btn-chat-input').val();
+        $.post("./sendMessage.php",
+            {
+                message: $message
+            },
+            function(data, status){
+                $('#btn-chat-input').val('');
+            });
+    });
+
+</script>

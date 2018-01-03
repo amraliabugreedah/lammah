@@ -40,7 +40,6 @@ mysqli_close($conn);
         $.post("../project_operations/getTopOrderedItems.php",
             {},
             function(data, status){
-            console.log(data);
                 if(status === "success"){
                     $('.topOrderedItems').append(data);
                 }
