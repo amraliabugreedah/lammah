@@ -56,7 +56,7 @@ mysqli_close($conn);
     $mobile_num.on('blur', function(){
         $mobile = $(this).val();
         $addNewUser = $('#addNewUser');
-        $.post("./check_user_email.php",
+        $.post("../project_operations/check_user_email.php",
             {
                 mobile_no: $mobile
 

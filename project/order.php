@@ -151,7 +151,7 @@ mysqli_close($conn);
     $('#order').css('display','block');
     if(disableUpperFuntion === false){
     $(function(){
-        $.post("./get_user_orders.php",
+        $.post("../project_operations/get_user_orders.php",
             {
                 user_id: id,
                 orders_num: orders_num,
@@ -174,7 +174,7 @@ mysqli_close($conn);
     $(document).on('click', '.pageNum', function(e) {
         disableUpperFuntion = true;
         $page_num = $(this).parent().attr('id');
-        $.post("./get_user_orders.php",
+        $.post("../project_operations/get_user_orders.php",
             {
                 user_id: id,
                 orders_num: orders_num,

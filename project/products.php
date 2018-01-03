@@ -93,12 +93,12 @@ echo "</div>";
   if (!isset($operation)){
         echo "<div class=\"row button-box\">";
             echo "<div class=\"col-sm-6 \">";
-            echo "<form method='post' action='products_settings.php'>
+            echo "<form method='post' action='../project_operations/products_settings.php'>
             <input type='submit' name='start_operation' id='start_operation' class=\"btn btn-default\" value='Add New Item'>
             </form>";
             echo "</div>";
             echo "<div class=\"col-sm-6 \">";
-            echo "<form method='post' action='products_settings.php'>
+            echo "<form method='post' action='../project_operations/products_settings.php'>
                    <input type='submit' name='start_operation' id='start_operation' class=\"btn btn-default\" value='Add New Category'>
                    </form>";
             echo "</div>";
@@ -114,13 +114,13 @@ echo "</div>";
                     echo "<div class=\"row top-buffer hoverRow bg-1\" id='$row[id]'>";
                     if(!isset($operation)) {
                         echo "<div class=\"col-sm-1\" align='right'>";
-                        echo "<form method='post' action='products_settings.php'>
+                        echo "<form method='post' action='../project_operations/products_settings.php'>
                               <input type='text' name='category_id' id='category_id' hidden value='$row[id]'>
                               <input type='submit' style='margin-top: 25%;' name='start_operation' id='start_operation' class=\"btn btn-default\" value='Edit'>
                               </form>";
                         echo "</div>";
                         echo "<div class=\"col-sm-1\" >";
-                        echo "<form method='post' action='products_settings.php'>
+                        echo "<form method='post' action='../project_operations/products_settings.php'>
                               <input type='text' name='category_id' id='category_id' hidden value='$row[id]'>
                               <input type='submit' style='margin-top: 25%;' name='start_operation' id='start_operation' class=\"btn btn-default\" value='Delete'>
                               </form>";
@@ -159,7 +159,7 @@ echo "</div>";
                                    echo"<tr id='$row1[id]'>";
                                    if(!isset($operation)){
                                         echo"<td align=\"center\"> 
-                                                <form method='post' action='products_settings.php'>
+                                                <form method='post' action='../project_operations/products_settings.php'>
                                                    <input type='text' name='item_id' id='item_id' hidden value='$row1[id]'>
                                                    <input type='submit' name='start_operation' id='start_operation' class=\"btn btn -default\" value='Edit'>
                                                    <input type='submit' name='start_operation' id='start_operation' class=\"btn btn -default\" value='Delete'>
@@ -246,7 +246,7 @@ mysqli_close($conn);
                 '  <td align=\"center\">' + $item_name + '</td></tr>').insertBefore('tr.totalOfOrder');
             $('td.totalItemPrice').text($total);
             $('td.totalQTY').text($totalQTY);
-            $.post("./products_settings.php",
+            $.post("../project_operations/products_settings.php",
                 {
                     operation: "AddItemOrder",
                     item_id: $item_id,
@@ -280,7 +280,7 @@ mysqli_close($conn);
             }
             $('td.totalItemPrice').text($total);
             $('td.totalQTY').text($totalQTY);
-            $.post("./products_settings.php",
+            $.post("../project_operations/products_settings.php",
                 {
                     operation: "RemoveItemOrder",
                     item_id: $item_id,
