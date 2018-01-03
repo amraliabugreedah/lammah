@@ -9,9 +9,15 @@ include '../_inc/main_user_info.php';
 echo "<div class=\"wrapper\">
 		<div class=\"container\">";
 
-echo "<div class=\"table-responsive row topPayingUsers ourThemeBF\"  id=''>";
-echo "<div class='col-sm-3'  align='left'>";
+echo "<div class=\"table-responsive row topPayingUsers \"  id=''>";
+echo "<div class='col-sm-3 ourThemeBF'  align='left'>";
 echo "<label class='tableLabel'>Top Paying Customers</label>";
+echo "</div>";
+echo "</div>";
+
+echo "<div class=\"table-responsive row topOrderedItems top-buffer\"  id=''>";
+echo "<div class='col-sm-3 ourThemeBF'  align='left'>";
+echo "<label class='tableLabel'>Top Ordered Items</label>";
 echo "</div>";
 echo "</div>";
 
@@ -29,6 +35,14 @@ mysqli_close($conn);
             function(data, status){
                 if(status === "success"){
                     $('.topPayingUsers').append(data);
+                }
+            });
+        $.post("../project_operations/getTopOrderedItems.php",
+            {},
+            function(data, status){
+            console.log(data);
+                if(status === "success"){
+                    $('.topOrderedItems').append(data);
                 }
             });
     });

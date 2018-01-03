@@ -42,7 +42,7 @@ $result = $conn->query($sql);
 
 while($row = $result->fetch_assoc()){
 
-    $sql2 = "SELECT COUNT(DISTINCT o.id) AS total, SUM(fi.item_price) AS total_paid FROM orders AS o INNER JOIN order_stuff AS os 
+    $sql2 = "SELECT COUNT(DISTINCT o.id) AS total, SUM(fi.item_price*os.quantity) AS total_paid FROM orders AS o INNER JOIN order_stuff AS os 
                     ON o.id = os.order_id INNER JOIN food_item AS fi ON fi.id = os.item_id WHERE o.status = 1 AND os.user_id = $row[id] AND client_id = $curr_client_id";
     $result2 = $conn->query($sql2);
     $row2 = $result2->fetch_assoc();

@@ -59,7 +59,7 @@ while($row = $result->fetch_assoc()){
     $total_price = 0;
     $total_quantity = 0;
     while($row2 = $result2->fetch_assoc()) {
-        $total_price = $total_price + $row2["item_price"];
+        $total_price = $total_price + $row2["item_price"]* $row2["quantity"];
         $total_quantity = $total_quantity + $row2["quantity"];
         echo "<tr id=''>";
         echo "  <td align='center' id=''></td>
