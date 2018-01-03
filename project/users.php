@@ -14,14 +14,14 @@ include '../_lib/db.conf.php';
 include '../_inc/main_user_info.php';
 
 echo "<div class=\"wrapper\">
-		<div class=\"container\" style='width:70%;'>";
+		<div class=\"container\">";
 
-    echo "<div class=\"table-responsive row\"  id=''>";
+    echo "<div class=\"table-responsive row ourThemeBF\"  id=''>";
     echo "<div class=\"form-group pull-right\">
     <input type=\"text\" class=\"search form-control\" placeholder=\"What you looking for?\">
     </div>
     <span class=\"counter pull-right\"></span>";
-    echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter results\">";
+    echo "<table class=\"table table-hover table-bordered jquery-tablesorter results\">";
     echo " <thead>
       <tr>
         <th class=\"text-center clickableElem\" data-sort=\"num\" >User ID  <i class=\"fa fa-sort\" aria-hidden=\"true\"></i></th>
@@ -69,7 +69,7 @@ while($row = $result->fetch_assoc()){
         echo "  <td align='center' id=''>" . $row["last_order_date"] . "</td>";
         echo "</tr>";
 }
-    echo"<tr class=\"danger no-result\">
+    echo"<tr class=\"danger no-result\" style='color: black'>
           <td colspan=\"10\" align='center'><i class=\"fa fa-warning\"></i> No result</td>
           </tr>";
     echo "</tbody>";

@@ -21,6 +21,8 @@ if($orders_num < 5){ //////// order by o.expected_delivery_time if it's needed  
         $sql .= " ORDER BY o.id DESC";
     }else if($curr_client_level == 3){
         $sql .= " ORDER BY o.expected_delivery_time, o.id ASC";
+    }else if($curr_client_level == 1){
+        $sql .= " ORDER BY o.id DESC";
     }
 }else{
     $sql = "SELECT DISTINCT o.id FROM orders AS o INNER JOIN order_stuff AS os 
@@ -29,6 +31,8 @@ if($orders_num < 5){ //////// order by o.expected_delivery_time if it's needed  
         $sql .= " ORDER BY o.id DESC";
     }else if($curr_client_level == 3){
         $sql .= " ORDER BY o.expected_delivery_time, o.id ASC";
+    }else if($curr_client_level == 1){
+        $sql .= " ORDER BY o.id DESC";
     }
     $sql .= " LIMIT $startRow, 4";
 }
@@ -40,9 +44,9 @@ while($row = $result->fetch_assoc()){
 
     $result2 = $conn->query($sql2);
 
-    echo "<div class=\"row table-responsive\" align=\"center\" style=\"display: block; padding-bottom: 70px\" id=''>";
+    echo "<div class=\"row table-responsive \" align=\"center\" style=\"display: block; padding-bottom: 70px\" id=''>";
     echo "<div class='col-sm-6'>";
-    echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
+    echo "<table class=\"table table-hover table-bordered jquery-tablesorter ourThemeBF\">";
     echo " <thead>
       <tr>
         <th class=\"text-center\" style='width: 2%'></th>
@@ -79,7 +83,7 @@ while($row = $result->fetch_assoc()){
     echo "</tbody>";
     echo " </table></div>";
     echo "<div class='col-sm-6'>";
-    echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
+    echo "<table class=\"table table-hover table-bordered jquery-tablesorter ourThemeBF\">";
     echo " <thead>
       <tr>
         <th class=\"text-center\" >Title</th>

@@ -3,11 +3,11 @@ body, html {
 }
 
 .wrapper {
-    background-color: ghostwhite;
-    max-width: fit-content; /* 20px smaller, to fit the paddings on the sides */
+    /*background-color: ghostwhite;*/
+    /*max-width: fit-content; !* 20px smaller, to fit the paddings on the sides *!*/
 
-    margin: 0 10px 10px 10px;
-    min-height: 100%;
+    /*margin: 0 10px 10px 10px;*/
+    /*min-height: 100%;*/
 
 }
 .container {
@@ -47,7 +47,7 @@ li a:hover:not(.active) {
 
 .bg-1 {
     background-color: #333;
-    color: #ffffff;
+    color: #eaeaea;
 }
 
 .top-buffer { margin-top:20px; }
@@ -158,4 +158,17 @@ hr.style2{
 .counter{
     padding:8px;
     color:#ccc;
+}
+
+.ourThemeBF, input[type=submit], a.btn{
+    background-color: #333;
+    color: #eaeaea;
+}
+input[type=number]{
+    background-color: white;
+    color: black;
+}
+
+tbody tr:hover{
+    color: #333333;
 }

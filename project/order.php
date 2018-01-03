@@ -125,7 +125,7 @@ if(isset($status_num)&&isset($order_id)){
                         echo "<div class='userOrders'></div>";
 
 
-            echo "<script>var orders_num = $row2[total];</script>";
+            echo "<script>let orders_num = $row2[total];</script>";
                         echo "<div class='' align='center'>
                             <ul class=\"pagination\">
                             
@@ -133,7 +133,7 @@ if(isset($status_num)&&isset($order_id)){
 
 
         } else {
-            echo "<h1>$mobile is not registered.<h1>";
+            echo "<h1 align='center'>Empty!<h1>";
         }
 
 

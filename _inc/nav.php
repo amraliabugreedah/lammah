@@ -6,8 +6,6 @@
  * Time: 7:56 PM
  */
 
-
-
 echo "<ul>
   <li><a id=\"main\" href=\"../project/main.php\">Main Page</a></li>
   <li><a id=\"newUser\" href=\"../project/new_user.php\">New User</a></li>

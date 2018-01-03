@@ -70,10 +70,10 @@ if($curr_client_level == 3) {
 
     echo "</div>";
 }
-echo "<div class=\"row table-responsive orderItemsAdded top-buffer\" style=\"display: none;\" id='orderItemsAdded'>";
+echo "<div class=\"row table-responsive orderItemsAdded top-buffer ourThemeBF\" style=\"display: none;\" id='orderItemsAdded'>";
 
 
-echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
+echo "<table class=\"table table-hover table-bordered jquery-tablesorter\">";
 echo " <thead>
       <tr>
         <th> </th>
@@ -135,8 +135,8 @@ echo "</div>";
                     }
                     echo "</div>";
 
-                    echo "<div class=\"row table-responsive foodMenuItems\" align=\"right\" style=\"display: none;\" id='$row[id]'>";
-                    echo "<table class=\"table table-hover table-bordered table-striped jquery-tablesorter\">";
+                    echo "<div class=\"row table-responsive foodMenuItems ourThemeBF top-buffer2\" align=\"right\" style=\"display: none;\" id='$row[id]'>";
+                    echo "<table class=\"table table-hover table-bordered jquery-tablesorter\">";
                     echo " <thead>
                                <tr>";
                                if($result1->num_rows == 0){
