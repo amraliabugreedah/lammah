@@ -12,6 +12,7 @@ echo "<ul>
   <li><a id=\"users\" href=\"../project/users.php\">Users</a></li>
   <li><a id=\"food\" href=\"../project/products.php\">Products</a></li>
   <li><a id=\"order\" style='display: none' href=\"../project/order.php\">Order</a></li>
+  <li><a id=\"chatPage\" href=\"../project_chat_page/chat_page.php\">Chat With Us</a></li>
   <li class='pull-right'><a id=\"logout\" href=\"../_auth/logout.php\">logout</a></li>
 </ul>";
 

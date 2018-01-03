@@ -162,8 +162,9 @@ echo "<div class='row' align='center'><div class='errorMsg' style='display: none
 
 
 
-include '../_inc/footer.php';
+
 echo "</div></div>";
+include '../_inc/footer.php';
 mysqli_close($conn);
 ?>
 

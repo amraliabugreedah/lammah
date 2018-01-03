@@ -139,10 +139,8 @@ if(isset($status_num)&&isset($order_id)){
 
 
 
-
-include '../_inc/footer.php';
 echo "</div></div>";
-
+include '../_inc/footer.php';
 mysqli_close($conn);
 ?>
 

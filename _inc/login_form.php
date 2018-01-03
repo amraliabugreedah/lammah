@@ -64,6 +64,6 @@ echo "<div class=\"wrapper\" style='height: fit-content'>
     </script>
 
 <?php
-include '../_inc/footer.php';
 echo "</div></div>";
+include '../_inc/footer.php';
 ?>

@@ -21,8 +21,8 @@ echo "<label class='tableLabel'>Top Ordered Items</label>";
 echo "</div>";
 echo "</div>";
 
-include '../_inc/footer.php';
 echo "</div></div>";
+include '../_inc/footer.php';
 mysqli_close($conn);
 ?>
 
