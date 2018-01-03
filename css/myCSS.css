@@ -11,7 +11,7 @@ body, html {
 
 }
 .container {
-    max-width: fit-content; /* 20px smaller, to fit the paddings on the sides */
+    max-width: fit-content;
     padding-top: 10px;
     /*margin: 0 10px 10px 10px;*/
 }
@@ -171,4 +171,7 @@ input[type=number]{
 
 tbody tr:hover{
     color: #333333;
+}
+.tableLabel{
+    font-size: xx-large;
 }

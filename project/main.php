@@ -11,7 +11,7 @@ echo "<div class=\"wrapper\">
 
 echo "<div class=\"table-responsive row topPayingUsers ourThemeBF\"  id=''>";
 echo "<div class='col-sm-3'  align='left'>";
-echo "<label style=' font-size: xx-large'>Top Paying Customers</label>";
+echo "<label class='tableLabel'>Top Paying Customers</label>";
 echo "</div>";
 echo "</div>";
 
@@ -24,7 +24,7 @@ mysqli_close($conn);
     $('#main').addClass("active");
 
     $(document).ready(function() {
-        $.post("./getTopPayingUsers.php",
+        $.post("../project_operations/getTopPayingUsers.php",
             {},
             function(data, status){
                 if(status === "success"){
