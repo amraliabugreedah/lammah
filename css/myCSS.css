@@ -6,7 +6,7 @@ body, html {
     background-color: ghostwhite;
     max-width: fit-content; /* 20px smaller, to fit the paddings on the sides */
 
-    margin: 0 10% 10% 10%;
+    margin: 0 2% 2% 2%;
     min-height: 100%;
     background: rgba(98,58,101,0.2)
 }
