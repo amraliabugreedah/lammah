@@ -2,10 +2,13 @@
     height: 80%;
 }
 .panel-body{
-    overflow-y: scroll;
     max-height: 80%;
 }
-
+ul.chatBody{
+    overflow-y: scroll;
+    max-height: 70%;
+    max-width: 100%;
+}
 .chat
 {
     height: 100%;
@@ -16,8 +19,8 @@
 
 .chat li
 {
-    margin-bottom: 20px;
-    padding-bottom: 20px;
+    margin-top: 10px;
+    padding-top: 10px;
     border-bottom: 1px dotted #B3A9A9;
 }
 
@@ -35,11 +38,15 @@
     width: 100%;
 }
 
+.chat li{
+    width: 100%;
+}
 
 .chat li .chat-body p, strong, small
 {
     margin: 10px 10px 10px 10px;
     color: #ffffff;
+
 }
 
 .panel .slidedown .glyphicon, .chat .glyphicon
