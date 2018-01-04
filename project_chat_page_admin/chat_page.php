@@ -21,10 +21,12 @@ if(!in_array($curr_client_level, $auth_users)){
     exit;
 }
 
+$chat_id = isset($_GET['chat_id'])?$_GET['chat_id']:null;
+
 echo "<div class=\"wrapper\"> 
         <div class=\"container\">";
 
-echo "<div class=\"row\">
+echo "<div class=\"row thisClientChatBox\" id='$chat_id'>
         <div class=\"col-md-12\">
             <div class=\"panel panel-primary\">
                 <div class=\"panel-heading\">
@@ -59,10 +61,11 @@ mysqli_close($conn);
 
 <script>
     $('#chatPage').addClass("active");
+    $chat_id = $('.thisClientChatBox').attr('id');
     $(document).ready(function(){
         $.post("./getCurrentClientChat.php",
             {
-
+                chat_id:$chat_id
             },
             function(data, status){
                 $('.chatBody').append(data);
