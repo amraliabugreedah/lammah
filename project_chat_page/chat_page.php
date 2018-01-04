@@ -17,16 +17,14 @@ include '../_inc/nav.php';
 echo "<div class=\"wrapper\"> 
         <div class=\"container\">";
 
-echo" <div class=\"row\">
+echo "<div class=\"row\">
         <div class=\"col-md-12\">
             <div class=\"panel panel-primary\">
                 <div class=\"panel-heading\">
                     <span class=\"glyphicon glyphicon-comment\"></span> Chat
                     <div class=\"btn-group pull-right\">
-                        
                             <a href=\"http://www.jquery2dotnet.com\"><span class=\"glyphicon glyphicon-refresh\">
                             </span>Refresh</a>
-                           
                     </div>
                 </div>
                 <div class=\"panel-body\">
