@@ -7,12 +7,17 @@
  */
 
 $pageTitle = 'Order';
+$auth_users = array(1,2);
 
 include '../_inc/header.php';
-include '../_inc/nav.php';
 include '../_lib/db.conf.php';
 include '../_inc/main_user_info.php';
+include '../_inc/nav.php';
 
+if(!in_array($curr_client_level, $auth_users)){
+    header("Location: ../_inc/login_form.php");
+    exit;
+}
 
 echo "<div class=\"wrapper\"> 
         <div class=\"container\">";

@@ -9,7 +9,7 @@
 
 $pageTitle = 'Chat With US';
 
-$auth_users = array(2);
+$auth_users = array(1);
 
 include '../_inc/header.php';
 include '../_lib/db.conf.php';
@@ -54,6 +54,7 @@ echo "<div class=\"row\">
 
 echo "</div></div>";
 include '../_inc/footer.php';
+mysqli_close($conn);
 ?>
 
 <script>
@@ -77,8 +78,7 @@ include '../_inc/footer.php';
                 message: $message
             },
             function(data, status){
-                // $('#btn-chat-input').val('');
-                $ulChatBody = $("ul.chatBody");
+               $ulChatBody = $("ul.chatBody");
                 location.reload();
                 $ulChatBody.scrollTop($ulChatBody[0].scrollHeight);
             });

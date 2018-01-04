@@ -19,5 +19,4 @@ $row = $result->fetch_assoc();
 
 $curr_client_id = $row['cid'];
 $curr_client_level = $row['client_level'];
-
 ?>

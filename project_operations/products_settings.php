@@ -6,12 +6,16 @@
  * Time: 7:07 PM
  */
 $pageTitle = 'Food Settings';
+$auth_users = array(2);
 
 include '../_inc/header.php';
 include '../_inc/nav.php';
 include '../_lib/db.conf.php';
 include '../_inc/main_user_info.php';
-
+if(!in_array($curr_client_level, $auth_users)){
+    header("Location: ../_inc/login_form.php");
+    exit;
+}
 
 $food_setting = isset($_POST['start_operation'])?$_POST['start_operation']:null;
 $category_id = isset($_POST['category_id'])?$_POST['category_id']:null;
