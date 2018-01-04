@@ -22,6 +22,14 @@ if(!in_array($curr_client_level, $auth_users)){
 }
 
 $chat_id = isset($_GET['chat_id'])?$_GET['chat_id']:null;
+$sql = "SELECT client_id FROM client_chats WHERE chat_id = $chat_id LIMIT 1";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$client_id = $row['client_id'];
+
+$sql2 = "SELECT clientname FROM clients WHERE cid = $client_id LIMIT 1";
+$result2 = $conn->query($sql2);
+$row2 = $result2->fetch_assoc();
 
 echo "<div class=\"wrapper\"> 
         <div class=\"container\">";
@@ -30,7 +38,7 @@ echo "<div class=\"row thisClientChatBox\" id='$chat_id'>
         <div class=\"col-md-12\">
             <div class=\"panel panel-primary\">
                 <div class=\"panel-heading\">
-                    <span class=\"glyphicon glyphicon-comment\"></span> Chat
+                    <span class=\"glyphicon glyphicon-comment\"></span> Chat with $row2[clientname]
                     <div class=\"btn-group pull-right\">
                             <a href=\"http://www.jquery2dotnet.com\"><span class=\"glyphicon glyphicon-refresh\">
                             </span>Refresh</a>

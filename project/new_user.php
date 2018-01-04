@@ -35,7 +35,7 @@ echo " <form method=\"post\" action=\"order.php\">
     <label for=\"last_name\">Last Name:  </label> 
    <input type=\"text\" class=\"form-control\" id=\"last_name\" placeholder=\"Enter Last Name\" name=\"last_name\">
   </div>
-  <div class=\"form-group\">
+  <div class=\"form-group mobileNumberDiv\">
   <label for=\"mobile_no\"> Mobile Number: </label> 
     <input type=\"number\" required class=\"form-control input-medium bfh-phone\"  id=\"mobile_no\" placeholder=\"Enter Mobile Number\" name=\"mobile_no\">
   </div>
@@ -58,10 +58,11 @@ mysqli_close($conn);
     $('#newUser').addClass("active");
 
     $mobile_num = $('#mobile_no');
+    $mobileNumberDiv = $('.mobileNumberDiv');
     $mobile_num.on('blur', function(){
         $mobile = $(this).val();
         $addNewUser = $('#addNewUser');
-        $.post("../project_operations/check_user_email.php",
+        $.post("../project_operations/check_user_mobile.php",
             {
                 mobile_no: $mobile
 
@@ -72,11 +73,16 @@ mysqli_close($conn);
                 $mobile_num.addClass("alert-danger");
                 $addNewUser.attr('disabled', true);
                 $addNewUser.css('pointer-events', 'none');
+                $mobileNumberDiv.addClass("alert-danger");
+                $("<p id='ErrorMSG'>Error! This Mobile Number is already registered.</p>").insertBefore('#mobile_no');
             }else{
                 $mobile_num.removeClass("alert-danger");
                 $mobile_num.addClass("alert-success");
                 $addNewUser.attr('disabled', false);
                 $addNewUser.css('pointer-events', 'auto');
+                $mobileNumberDiv.removeClass("alert-danger");
+                $mobileNumberDiv.addClass("alert-success");
+                $('#ErrorMSG').remove();
             }
             });
     });
