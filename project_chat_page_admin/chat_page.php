@@ -71,28 +71,41 @@ mysqli_close($conn);
     $('#chatPage').addClass("active");
     $chat_id = $('.thisClientChatBox').attr('id');
     $(document).ready(function(){
+        getCurrentClientChat();
+    });
+
+    function getCurrentClientChat(){
         $.post("./getCurrentClientChat.php",
             {
                 chat_id:$chat_id
             },
             function(data, status){
-                $('.chatBody').append(data);
+                $chatBody = $('.chatBody');
+                $chatBody.empty();
+                $chatBody.append(data);
                 $ulChatBody = $("ul.chatBody");
+                $ulChatBody.scrollTop($ulChatBody[0].scrollHeight);
+            });
+    }
+
+    $('#btn-send-chat').click(function(){
+        $msgTextarea =  $('#btn-chat-input');
+        $message = $msgTextarea.val();
+        $.post("./sendMessage.php",
+            {
+                message: $message,
+                chat_id:$chat_id
+            },
+            function(data, status){
+               $ulChatBody = $("ul.chatBody");
+                $msgTextarea.val('');
+                getCurrentClientChat();
                 $ulChatBody.scrollTop($ulChatBody[0].scrollHeight);
             });
     });
 
-    $('#btn-send-chat').click(function(){
-        $message = $('#btn-chat-input').val();
-        $.post("./sendMessage.php",
-            {
-                message: $message
-            },
-            function(data, status){
-               $ulChatBody = $("ul.chatBody");
-                location.reload();
-                $ulChatBody.scrollTop($ulChatBody[0].scrollHeight);
-            });
-    });
+    setInterval(function() {
+        getCurrentClientChat();
+    },  1000); // 1000 milsec
 
 </script>

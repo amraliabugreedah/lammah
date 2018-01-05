@@ -28,7 +28,7 @@ echo "<div class=\"row\">
         <div class=\"col-md-12\">
             <div class=\"panel panel-primary\">
                 <div class=\"panel-heading\">
-                    <span class=\"glyphicon glyphicon-comment\"></span> Chat
+                    <span class=\"glyphicon glyphicon-comment\"></span> Chat with the Admin
                     <div class=\"btn-group pull-right\">
                             <a href=\"http://www.jquery2dotnet.com\"><span class=\"glyphicon glyphicon-refresh\">
                             </span>Refresh</a>
@@ -59,19 +59,26 @@ include '../_inc/footer.php';
 <script>
     $('#chatPage').addClass("active");
     $(document).ready(function(){
+        getCurrentClientChat();
+    });
+
+    function getCurrentClientChat(){
         $.post("./getCurrentClientChat.php",
             {
 
             },
             function(data, status){
-                $('.chatBody').append(data);
+                $chatBody = $('.chatBody');
+                $chatBody.empty();
+                $chatBody.append(data);
                 $ulChatBody = $("ul.chatBody");
                 $ulChatBody.scrollTop($ulChatBody[0].scrollHeight);
             });
-    });
+    }
 
     $('#btn-send-chat').click(function(){
-        $message = $('#btn-chat-input').val();
+        $msgTextarea =  $('#btn-chat-input');
+        $message = $msgTextarea.val();
         $.post("./sendMessage.php",
             {
                 message: $message
@@ -79,9 +86,14 @@ include '../_inc/footer.php';
             function(data, status){
                 // $('#btn-chat-input').val('');
                 $ulChatBody = $("ul.chatBody");
-                location.reload();
+                $msgTextarea.val('');
+                getCurrentClientChat();
                 $ulChatBody.scrollTop($ulChatBody[0].scrollHeight);
             });
     });
+
+    setInterval(function() {
+        getCurrentClientChat();
+    },  1000); //  1000 milsec
 
 </script>
