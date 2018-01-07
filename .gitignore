@@ -11,4 +11,4 @@
 
 \.idea/workspace\.xml
 
-db.conf.php
+\_lib/db.conf.php
